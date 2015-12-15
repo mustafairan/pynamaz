@@ -39,7 +39,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -442,26 +442,6 @@
           </layout>
          </widget>
         </widget>
-        <widget class="QDial" name="dial">
-         <property name="geometry">
-          <rect>
-           <x>400</x>
-           <y>160</y>
-           <width>50</width>
-           <height>64</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QwtKnob" name="Knob">
-         <property name="geometry">
-          <rect>
-           <x>370</x>
-           <y>220</y>
-           <width>116</width>
-           <height>116</height>
-          </rect>
-         </property>
-        </widget>
         <widget class="QCheckBox" name="checkBox_13">
          <property name="geometry">
           <rect>
@@ -504,8 +484,6 @@
         <zorder>groupBox_2</zorder>
         <zorder>AnalogClock</zorder>
         <zorder>groupBox</zorder>
-        <zorder>dial</zorder>
-        <zorder>Knob</zorder>
         <zorder>checkBox_13</zorder>
         <zorder>gridLayoutWidget_7</zorder>
        </widget>
@@ -1030,11 +1008,6 @@
    <class>QwtDial</class>
    <extends>QWidget</extends>
    <header>qwt_dial.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QwtKnob</class>
-   <extends>QWidget</extends>
-   <header>qwt_knob.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

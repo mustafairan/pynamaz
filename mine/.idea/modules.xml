@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/benimki.iml" filepath="$PROJECT_DIR$/.idea/benimki.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gui/ui_pynamaz.py" filepath="$PROJECT_DIR$/gui/ui_pynamaz.py" />
     </modules>
   </component>
 </project>
