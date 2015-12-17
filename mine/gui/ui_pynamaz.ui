@@ -39,7 +39,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -54,73 +54,6 @@
         <attribute name="title">
          <string>Anasayfa</string>
         </attribute>
-        <widget class="QwtAnalogClock" name="AnalogClock">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="geometry">
-          <rect>
-           <x>360</x>
-           <y>10</y>
-           <width>131</width>
-           <height>121</height>
-          </rect>
-         </property>
-         <property name="readOnly">
-          <bool>false</bool>
-         </property>
-         <property name="valid">
-          <bool>true</bool>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="lineWidth">
-          <number>7</number>
-         </property>
-         <property name="frameShadow">
-          <enum>QwtDial::Sunken</enum>
-         </property>
-         <property name="mode">
-          <enum>QwtDial::RotateNeedle</enum>
-         </property>
-        </widget>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>370</y>
-           <width>391</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <property name="title">
-          <string>GroupBox</string>
-         </property>
-         <widget class="QLabel" name="label_6">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>26</y>
-            <width>178</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>SONRAKİ VAKTE KALAN SÜRE</string>
-          </property>
-         </widget>
-         <widget class="QLCDNumber" name="lcdNumber_6">
-          <property name="geometry">
-           <rect>
-            <x>210</x>
-            <y>26</y>
-            <width>161</width>
-            <height>41</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="geometry">
           <rect>
@@ -149,56 +82,8 @@
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="1" column="0">
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>İKİNDİ</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>İMSAK</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>ÖĞLE</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>AKŞAM</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>YATSI</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLCDNumber" name="lcdNumber">
+           <item row="3" column="3">
+            <widget class="QLCDNumber" name="lcdNumberDhuhrMinute">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -216,33 +101,33 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="6" column="1">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>YATSI</string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QLCDNumber" name="lcdNumberMaghribHour">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
              </property>
-            </spacer>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="smallDecimalPoint">
+              <bool>false</bool>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Filled</enum>
+             </property>
+            </widget>
            </item>
            <item row="4" column="0">
-            <spacer name="horizontalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="0">
             <spacer name="horizontalSpacer_3">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -256,7 +141,7 @@
             </spacer>
            </item>
            <item row="3" column="0">
-            <spacer name="horizontalSpacer_4">
+            <spacer name="horizontalSpacer_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -268,8 +153,22 @@
              </property>
             </spacer>
            </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>AKŞAM</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>ÖĞLE</string>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="2">
-            <widget class="QLCDNumber" name="lcdNumber_2">
+            <widget class="QLCDNumber" name="lcdNumberFecrHour">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -287,8 +186,21 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QLCDNumber" name="lcdNumber_3">
+           <item row="6" column="0">
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="6" column="2">
+            <widget class="QLCDNumber" name="lcdNumberIshaHour">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -306,8 +218,28 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QLCDNumber" name="lcdNumber_4">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>İMSAK</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="3">
+            <widget class="QLCDNumber" name="lcdNumberAsrMinute">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -325,65 +257,8 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="3">
-            <widget class="QLCDNumber" name="lcdNumber_5">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Sunken</enum>
-             </property>
-             <property name="lineWidth">
-              <number>1</number>
-             </property>
-             <property name="smallDecimalPoint">
-              <bool>false</bool>
-             </property>
-             <property name="segmentStyle">
-              <enum>QLCDNumber::Filled</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLCDNumber" name="lcdNumber_7">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Sunken</enum>
-             </property>
-             <property name="lineWidth">
-              <number>1</number>
-             </property>
-             <property name="smallDecimalPoint">
-              <bool>false</bool>
-             </property>
-             <property name="segmentStyle">
-              <enum>QLCDNumber::Filled</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QLCDNumber" name="lcdNumber_8">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Sunken</enum>
-             </property>
-             <property name="lineWidth">
-              <number>1</number>
-             </property>
-             <property name="smallDecimalPoint">
-              <bool>false</bool>
-             </property>
-             <property name="segmentStyle">
-              <enum>QLCDNumber::Filled</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="3">
-            <widget class="QLCDNumber" name="lcdNumber_9">
+           <item row="6" column="3">
+            <widget class="QLCDNumber" name="lcdNumberIshaMinute">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -402,7 +277,7 @@
             </widget>
            </item>
            <item row="4" column="2">
-            <widget class="QLCDNumber" name="lcdNumber_10">
+            <widget class="QLCDNumber" name="lcdNumberAsrHour">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -420,8 +295,15 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="3">
-            <widget class="QLCDNumber" name="lcdNumber_11">
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>İKİNDİ</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLCDNumber" name="lcdNumberDhuhrHour">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -438,6 +320,115 @@
               <enum>QLCDNumber::Filled</enum>
              </property>
             </widget>
+           </item>
+           <item row="5" column="3">
+            <widget class="QLCDNumber" name="lcdNumberMaghribMinute">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="smallDecimalPoint">
+              <bool>false</bool>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Filled</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLCDNumber" name="lcdNumberFecrMinute">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="smallDecimalPoint">
+              <bool>false</bool>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Filled</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_24">
+             <property name="text">
+              <string>GÜNEŞ</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLCDNumber" name="lcdNumberSunriseHour">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="smallDecimalPoint">
+              <bool>false</bool>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Filled</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLCDNumber" name="lcdNumberSunriseMinute">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="lineWidth">
+              <number>1</number>
+             </property>
+             <property name="smallDecimalPoint">
+              <bool>false</bool>
+             </property>
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Filled</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -466,14 +457,14 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="1" column="1">
-           <widget class="QLabel" name="label_23">
+           <widget class="QLabel" name="labelCurrentDate">
             <property name="text">
              <string>::tarih::</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="label_11">
+           <widget class="QLabel" name="labelCurrentCity">
             <property name="text">
              <string>Ankara</string>
             </property>
@@ -481,11 +472,81 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>380</y>
+           <width>371</width>
+           <height>80</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="labelNextPrayer">
+            <property name="text">
+             <string>SONRAKİ VAKTE KALAN SÜRE</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLCDNumber" name="lcdNumberNextPrayerHour">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="lineWidth">
+             <number>1</number>
+            </property>
+            <property name="smallDecimalPoint">
+             <bool>false</bool>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Filled</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLCDNumber" name="lcdNumberNextPrayeMinute">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="lineWidth">
+             <number>1</number>
+            </property>
+            <property name="smallDecimalPoint">
+             <bool>false</bool>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Filled</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QGroupBox" name="groupBox_6">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>360</y>
+           <width>411</width>
+           <height>111</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>GroupBox</string>
+         </property>
+        </widget>
+        <zorder>groupBox_6</zorder>
         <zorder>groupBox_2</zorder>
-        <zorder>AnalogClock</zorder>
-        <zorder>groupBox</zorder>
         <zorder>checkBox_13</zorder>
         <zorder>gridLayoutWidget_7</zorder>
+        <zorder>horizontalLayoutWidget</zorder>
        </widget>
        <widget class="QWidget" name="tab_2">
         <attribute name="title">
@@ -514,48 +575,54 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_9">
+            <widget class="QLabel" name="labelCountry">
              <property name="text">
               <string>ÜLKE</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="labelCity">
              <property name="text">
               <string>ŞEHİR</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_7">
+            <widget class="QLabel" name="labelDistrict">
              <property name="text">
               <string>İLÇE</string>
              </property>
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QLabel" name="label_10">
+            <widget class="QLabel" name="labelTown">
              <property name="text">
               <string>KÖY/KASABA</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QComboBox" name="comboBox"/>
+            <widget class="QComboBox" name="comboBoxSelectCountry">
+             <item>
+              <property name="text">
+               <string>türkei</string>
+              </property>
+             </item>
+            </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QComboBox" name="comboBox_2"/>
+            <widget class="QComboBox" name="comboBoxSelectCity"/>
            </item>
            <item row="2" column="1">
-            <widget class="QComboBox" name="comboBox_3">
+            <widget class="QComboBox" name="comboBoxSelectDistrict">
              <property name="enabled">
               <bool>false</bool>
              </property>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QComboBox" name="comboBox_4">
+            <widget class="QComboBox" name="comboBoxSelectTown">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -761,68 +828,6 @@
         <attribute name="title">
          <string>Kazalar</string>
         </attribute>
-        <widget class="QWidget" name="gridLayoutWidget_6">
-         <property name="geometry">
-          <rect>
-           <x>40</x>
-           <y>40</y>
-           <width>231</width>
-           <height>261</height>
-          </rect>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_7">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_22">
-            <property name="text">
-             <string>Sabah</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_19">
-            <property name="text">
-             <string>Akşam</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_21">
-            <property name="text">
-             <string>Öğle</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_20">
-            <property name="text">
-             <string>İkindi</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>Yatsı</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox_10"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="spinBox_11"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="spinBox_12"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="spinBox_13"/>
-          </item>
-          <item row="4" column="1">
-           <widget class="QSpinBox" name="spinBox_14"/>
-          </item>
-         </layout>
-        </widget>
         <widget class="QGroupBox" name="groupBox_5">
          <property name="geometry">
           <rect>
@@ -835,9 +840,69 @@
          <property name="title">
           <string>GroupBox</string>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget_6">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>30</y>
+            <width>231</width>
+            <height>261</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string>Öğle</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Sabah</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Akşam</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>İkindi</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>Yatsı</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="spinBox_11"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QSpinBox" name="spinBox_12"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QSpinBox" name="spinBox_13"/>
+           </item>
+           <item row="5" column="1">
+            <widget class="QSpinBox" name="spinBox_14"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="spinBox_10"/>
+           </item>
+          </layout>
+         </widget>
         </widget>
-        <zorder>groupBox_5</zorder>
-        <zorder>gridLayoutWidget_6</zorder>
        </widget>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
@@ -846,86 +911,57 @@
         <widget class="QWidget" name="gridLayoutWidget_8">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>50</y>
-           <width>371</width>
-           <height>168</height>
+           <x>140</x>
+           <y>90</y>
+           <width>181</width>
+           <height>121</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
-          <item row="0" column="1">
-           <widget class="QCommandLinkButton" name="commandLinkButton">
-            <property name="text">
-             <string>:::link aç::</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_15">
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_24">
-            <property name="text">
-             <string>yazar</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="1">
-           <widget class="QCommandLinkButton" name="commandLinkButton_2">
+           <widget class="QPushButton" name="pushButton_2">
             <property name="text">
-             <string>CommandLinkButton</string>
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pushButton_first">
+            <property name="text">
+             <string>PushButton</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QCommandLinkButton" name="commandLinkButton_3">
+           <widget class="QPushButton" name="pushButton_3">
             <property name="text">
-             <string>CommandLinkButton</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QCommandLinkButton" name="commandLinkButton_4">
-            <property name="text">
-             <string>CommandLinkButton</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_25">
-            <property name="text">
-             <string>risale</string>
+             <string>PushButton</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_14">
             <property name="text">
-             <string>Diyanet</string>
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
-        <widget class="QGroupBox" name="groupBox_6">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>461</width>
-           <height>411</height>
-          </rect>
-         </property>
-         <property name="title">
-          <string>Linkler</string>
-         </property>
-        </widget>
-        <zorder>groupBox_6</zorder>
-        <zorder>gridLayoutWidget_8</zorder>
        </widget>
       </widget>
      </item>
@@ -976,6 +1012,9 @@
    <property name="text">
     <string>Cleanlooks</string>
    </property>
+   <property name="softKeyRole">
+    <enum>QAction::NoSoftKey</enum>
+   </property>
   </action>
   <action name="actionGTK_stili">
    <property name="text">
@@ -998,18 +1037,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QwtAnalogClock</class>
-   <extends>QwtDial</extends>
-   <header>qwt_analog_clock.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QwtDial</class>
-   <extends>QWidget</extends>
-   <header>qwt_dial.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
