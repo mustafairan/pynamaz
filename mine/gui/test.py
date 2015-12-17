@@ -24,28 +24,32 @@ uygulama = QtGui.QApplication(sys.argv)
 
 
 class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
-    currentTime="88"
-    fajrTime="88"
-    asrTime="88"
-    dhuhrTime="88"
-    sunriseTime="88"
-    maghribTime="88"
-    ishaTime="88"
-    nextTime="88"
-    currentDate="18.18.15"
+    currentTime="88:88:88"
+    fajrTime="88:88"
+    asrTime="88:88"
+    dhuhrTime="88:88"
+    sunriseTime="88:88"
+    maghribTime="88:88"
+    ishaTime="88:88"
+    nextTime="88:88"
+    currentDate="18.12.15"
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
 
         self.setupUi(self)
 
+        #Continually updating time
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.setCurrentTime)
         timer.start(1000)
-        self.setCurrentTime()
+        #self.setCurrentTime()
 
         #TEST BUTTON
-        self.testbutton.clicked.connect(self.setPrayerTimes)#takes current date for now
-        self.testbutton.clicked.connect(self.printPrayerTimes)
+        #self.testbutton.clicked.connect(self.setPrayerTimes)#takes current date for now
+        #self.testbutton.clicked.connect(self.printPrayerTimes)
+
+        self.setPrayerTimes()
+        self.printPrayerTimes()
 
         #Menu Section
             #Appereance Preferances
@@ -108,14 +112,12 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
         self.pushButton_first.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
 
-    def setCurrentTime(self):
+    def setCurrentTime(self): #sets and continually updates then prints current time
         self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
         self.currentDate = QtCore.QDate().currentDate().toString("dd.MM.yy")
         self.lcdNumberCurrentHour.display(self.currentTime.split(':')[0])
         self.lcdNumberCurrentMinute.display(self.currentTime.split(':')[1])
         self.lcdNumberCurrentSecond.display(self.currentTime.split(':')[2])
-
-
 
     def setPrayerTimes(self): #Parses times file PrayerTimes.txt and sets time variables
 
