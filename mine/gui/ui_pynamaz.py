@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_pynamaz.ui'
 #
-# Created: Thu Dec 17 15:00:17 2015
+# Created: Thu Dec 17 15:04:51 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -203,22 +203,22 @@ class Ui_MainWindow(object):
         self.gridLayout_8.addWidget(self.labelCurrentCity, 1, 0, 1, 1)
         spacerItem6 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout_8.addItem(spacerItem6, 1, 2, 1, 1)
-        self.lcdNumberFajrMinute_3 = QtGui.QLCDNumber(self.gridLayoutWidget_7)
-        self.lcdNumberFajrMinute_3.setFrameShape(QtGui.QFrame.StyledPanel)
-        self.lcdNumberFajrMinute_3.setFrameShadow(QtGui.QFrame.Sunken)
-        self.lcdNumberFajrMinute_3.setLineWidth(1)
-        self.lcdNumberFajrMinute_3.setSmallDecimalPoint(False)
-        self.lcdNumberFajrMinute_3.setSegmentStyle(QtGui.QLCDNumber.Filled)
-        self.lcdNumberFajrMinute_3.setObjectName(_fromUtf8("lcdNumberFajrMinute_3"))
-        self.gridLayout_8.addWidget(self.lcdNumberFajrMinute_3, 1, 5, 1, 1)
-        self.lcdNumberFajrMinute_2 = QtGui.QLCDNumber(self.gridLayoutWidget_7)
-        self.lcdNumberFajrMinute_2.setFrameShape(QtGui.QFrame.StyledPanel)
-        self.lcdNumberFajrMinute_2.setFrameShadow(QtGui.QFrame.Sunken)
-        self.lcdNumberFajrMinute_2.setLineWidth(1)
-        self.lcdNumberFajrMinute_2.setSmallDecimalPoint(False)
-        self.lcdNumberFajrMinute_2.setSegmentStyle(QtGui.QLCDNumber.Filled)
-        self.lcdNumberFajrMinute_2.setObjectName(_fromUtf8("lcdNumberFajrMinute_2"))
-        self.gridLayout_8.addWidget(self.lcdNumberFajrMinute_2, 1, 4, 1, 1)
+        self.lcdNumberCurrentMinute = QtGui.QLCDNumber(self.gridLayoutWidget_7)
+        self.lcdNumberCurrentMinute.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.lcdNumberCurrentMinute.setFrameShadow(QtGui.QFrame.Sunken)
+        self.lcdNumberCurrentMinute.setLineWidth(1)
+        self.lcdNumberCurrentMinute.setSmallDecimalPoint(False)
+        self.lcdNumberCurrentMinute.setSegmentStyle(QtGui.QLCDNumber.Filled)
+        self.lcdNumberCurrentMinute.setObjectName(_fromUtf8("lcdNumberCurrentMinute"))
+        self.gridLayout_8.addWidget(self.lcdNumberCurrentMinute, 1, 5, 1, 1)
+        self.lcdNumberCurrentHour = QtGui.QLCDNumber(self.gridLayoutWidget_7)
+        self.lcdNumberCurrentHour.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.lcdNumberCurrentHour.setFrameShadow(QtGui.QFrame.Sunken)
+        self.lcdNumberCurrentHour.setLineWidth(1)
+        self.lcdNumberCurrentHour.setSmallDecimalPoint(False)
+        self.lcdNumberCurrentHour.setSegmentStyle(QtGui.QLCDNumber.Filled)
+        self.lcdNumberCurrentHour.setObjectName(_fromUtf8("lcdNumberCurrentHour"))
+        self.gridLayout_8.addWidget(self.lcdNumberCurrentHour, 1, 4, 1, 1)
         self.horizontalLayoutWidget = QtGui.QWidget(self.tab)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(40, 380, 371, 80))
         self.horizontalLayoutWidget.setObjectName(_fromUtf8("horizontalLayoutWidget"))

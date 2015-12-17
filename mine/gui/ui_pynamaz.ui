@@ -491,7 +491,7 @@
            </spacer>
           </item>
           <item row="1" column="5">
-           <widget class="QLCDNumber" name="lcdNumberFajrMinute_3">
+           <widget class="QLCDNumber" name="lcdNumberCurrentMinute">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -510,7 +510,7 @@
            </widget>
           </item>
           <item row="1" column="4">
-           <widget class="QLCDNumber" name="lcdNumberFajrMinute_2">
+           <widget class="QLCDNumber" name="lcdNumberCurrentHour">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
