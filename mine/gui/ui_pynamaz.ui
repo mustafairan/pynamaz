@@ -39,7 +39,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -168,7 +168,7 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QLCDNumber" name="lcdNumberFecrHour">
+            <widget class="QLCDNumber" name="lcdNumberFajrHour">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -354,7 +354,7 @@
             </spacer>
            </item>
            <item row="1" column="3">
-            <widget class="QLCDNumber" name="lcdNumberFecrMinute">
+            <widget class="QLCDNumber" name="lcdNumberFajrMinute">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -539,7 +539,7 @@
           </rect>
          </property>
          <property name="title">
-          <string>GroupBox</string>
+          <string>Kalan süre</string>
          </property>
         </widget>
         <zorder>groupBox_6</zorder>
@@ -659,19 +659,11 @@
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="checkBox_4">
-            <property name="text">
-             <string>İmsak</string>
-            </property>
-           </widget>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="spinBoxFacrWarn"/>
           </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="checkBox">
-            <property name="text">
-             <string>Akşam</string>
-            </property>
-           </widget>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="spinBoxAsrWarn"/>
           </item>
           <item row="6" column="1">
            <widget class="QDialogButtonBox" name="buttonBox">
@@ -680,41 +672,49 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="checkBox_2">
-            <property name="text">
-             <string>Yatsı</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="checkBox_11">
-            <property name="text">
-             <string>Öğle</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="spinBox"/>
-          </item>
           <item row="2" column="0">
-           <widget class="QCheckBox" name="checkBox_12">
+           <widget class="QCheckBox" name="checkBoxAsrWarn">
             <property name="text">
              <string>İkindi</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
-           <widget class="QSpinBox" name="spinBox_6"/>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="spinBoxDhuhrWarn"/>
           </item>
           <item row="3" column="1">
-           <widget class="QSpinBox" name="spinBox_7"/>
+           <widget class="QSpinBox" name="spinBoxMaghribWarn"/>
           </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox_5"/>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxMaghribWarn">
+            <property name="text">
+             <string>Akşam</string>
+            </property>
+           </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="spinBox_2"/>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxDhuhrWarn">
+            <property name="text">
+             <string>Öğle</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QCheckBox" name="checkBoxIshaWarn">
+            <property name="text">
+             <string>Yatsı</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QSpinBox" name="spinBoxIshaWarn"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="checkBoxFajrWarn">
+            <property name="text">
+             <string>İmsak</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -770,21 +770,21 @@
            </widget>
           </item>
           <item row="5" column="0">
-           <widget class="QCheckBox" name="checkBox_20">
+           <widget class="QCheckBox" name="checkBoxPlayWarnSound">
             <property name="text">
              <string>Uyarı sesleri çal</string>
             </property>
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QCheckBox" name="checkBox_18">
+           <widget class="QCheckBox" name="checkBoxPlayAdhan">
             <property name="text">
              <string>Vakitlerde ezan oku</string>
             </property>
            </widget>
           </item>
           <item row="6" column="0">
-           <widget class="QCheckBox" name="checkBox_21">
+           <widget class="QCheckBox" name="checkBoxMuteInAdhanTime">
             <property name="text">
              <string>Ezan vaktinde sesi kapat</string>
             </property>
@@ -805,7 +805,7 @@
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QCheckBox" name="checkBox_14">
+           <widget class="QCheckBox" name="checkBoxShowInTray">
             <property name="text">
              <string>Sistem tepsisinde simge göster</string>
             </property>
@@ -819,7 +819,7 @@
            </widget>
           </item>
           <item row="9" column="1">
-           <widget class="QComboBox" name="comboBox_5"/>
+           <widget class="QComboBox" name="comboBoxCloseOption"/>
           </item>
          </layout>
         </widget>
@@ -886,19 +886,19 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_11"/>
+            <widget class="QSpinBox" name="spinBoxZuhrCount"/>
            </item>
            <item row="3" column="1">
-            <widget class="QSpinBox" name="spinBox_12"/>
+            <widget class="QSpinBox" name="spinBoxAsrCount"/>
            </item>
            <item row="4" column="1">
-            <widget class="QSpinBox" name="spinBox_13"/>
+            <widget class="QSpinBox" name="spinBoxMaghribCount"/>
            </item>
            <item row="5" column="1">
-            <widget class="QSpinBox" name="spinBox_14"/>
+            <widget class="QSpinBox" name="spinBoxIshaCount"/>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBox_10"/>
+            <widget class="QSpinBox" name="spinBoxFajrCount"/>
            </item>
           </layout>
          </widget>
