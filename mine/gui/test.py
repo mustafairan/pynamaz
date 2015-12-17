@@ -28,41 +28,38 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.__init__(self)
 
         self.setupUi(self)
+        #self.pushButton_first.clicked.connect(self.siteyeGir)
+        #self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+        #Menu Section
 
 
-        self.pushButton_first.clicked.connect(self.siteyeGir)
-        #self.actionCleanlooks.triggered.connect(self.cleanlooksGorunumu)
+        #Prayer Time Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
 
-        self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+        #Next Prayer Time Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+        #Current date Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+        #Current City Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+        #Select Region Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+         #Time Warnings Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+        #Preferences Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+        #Qadha Counts Section
+        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
+
+        #Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.siteyeGir('http://diyanet.gov.tr'))
-        
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-
-
-
-
-
-
-
-
-
-
-
 
     # def cleanlooksGorunumu(self):
     #     self.gorunum = "Cleanlooks"

@@ -39,7 +39,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -451,11 +451,18 @@
           <rect>
            <x>30</x>
            <y>20</y>
-           <width>231</width>
+           <width>421</width>
            <height>61</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Saat</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="1">
            <widget class="QLabel" name="labelCurrentDate">
             <property name="text">
@@ -467,6 +474,57 @@
            <widget class="QLabel" name="labelCurrentCity">
             <property name="text">
              <string>Ankara</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="5">
+           <widget class="QLCDNumber" name="lcdNumberFajrMinute_3">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="lineWidth">
+             <number>1</number>
+            </property>
+            <property name="smallDecimalPoint">
+             <bool>false</bool>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Filled</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLCDNumber" name="lcdNumberFajrMinute_2">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="lineWidth">
+             <number>1</number>
+            </property>
+            <property name="smallDecimalPoint">
+             <bool>false</bool>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Filled</enum>
             </property>
            </widget>
           </item>
@@ -668,7 +726,7 @@
           <item row="6" column="1">
            <widget class="QDialogButtonBox" name="buttonBox">
             <property name="standardButtons">
-             <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+             <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
             </property>
            </widget>
           </item>
@@ -751,7 +809,7 @@
           <item row="11" column="1">
            <widget class="QDialogButtonBox" name="buttonBox_4">
             <property name="standardButtons">
-             <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+             <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
             </property>
            </widget>
           </item>
