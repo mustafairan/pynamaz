@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import sys, urllib
-
+#from ConfigParser import SafeConfigParser
+from preferences import *
+from prayerTimes import *
 
 try:
     from PyQt4 import QtCore, QtGui
@@ -16,11 +18,10 @@ except:
                                   "Kapat")
     sys.exit()
 
-# from moduller.UlkelerSehirler import UlkelerSehirler
 from ui_pynamaz import Ui_MainWindow
 
 # uygulama = QtGui.QApplication(sys.argv)
-uygulama = QtGui.QApplication(sys.argv)
+app = QtGui.QApplication(sys.argv)
 
 
 class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
@@ -32,21 +33,20 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     maghribTime="88:88"
     ishaTime="88:88"
     nextTime="88:88"
-    currentDate="18.12.15"
+    currentDate=""
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
-
         self.setupUi(self)
 
         #Continually updating time
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.setCurrentTime)
         timer.start(1000)
-        #self.setCurrentTime()
 
         #TEST BUTTON
-        #self.testbutton.clicked.connect(self.setPrayerTimes)#takes current date for now
-        #self.testbutton.clicked.connect(self.printPrayerTimes)
+        preferencesObj=preferences()
+        #self.testbutton.clicked.connect(lambda : preferencesObj.readPreferences('showInTray'))
+        self.testbutton.clicked.connect(preferencesObj.retunToDefaults)
 
         self.setPrayerTimes()
         self.printPrayerTimes()
@@ -111,14 +111,13 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
         self.pushButton_first.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
-
     def setCurrentTime(self): #sets and continually updates then prints current time
+        #TODO Should warn the user to set his system clock properly
         self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
         self.currentDate = QtCore.QDate().currentDate().toString("dd.MM.yy")
         self.lcdNumberCurrentHour.display(self.currentTime.split(':')[0])
         self.lcdNumberCurrentMinute.display(self.currentTime.split(':')[1])
         self.lcdNumberCurrentSecond.display(self.currentTime.split(':')[2])
-
     def setPrayerTimes(self): #Parses times file PrayerTimes.txt and sets time variables
 
         #PrayerTimes.txt format:
@@ -127,9 +126,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         #firstly, Current date and time must be set
         try:
-            #self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
-            #self.currentDate = QtCore.QDate().currentDate().toString("dd.MM.yy")
-            #print self.currentDate + " "+ self.currentTime
+            self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
+            self.currentDate = QtCore.QDate().currentDate().toString("dd.MM.yy")
+            print self.currentDate + " "+ self.currentTime
             pass
         except:
             print "current time and date cant be obtained from operating system" #should be gui warning
@@ -159,7 +158,13 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberMaghribMinute.display(self.maghribTime.split(':')[1])
         self.lcdNumberIshaHour.display(self.ishaTime.split(':')[0])
         self.lcdNumberIshaMinute.display(self.ishaTime.split(':')[1])
+        def setAppereance(self,appereance_choice):
+         if appereance_choice == None:
+            appereance_choice = "Cleanlooks"
+         QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
+    def openLink(self,url=''):
 
+        QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
     def TESTFUNC(self):
         #print QtCore.QTime.currentTime()
         #currentDate = QtCore.QDate().currentDate().toString("dd MMMM yyyy")
@@ -168,31 +173,21 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         # self.timerSaat = QtCore.QTimer()
         # self.connect(self.timerSaat, QtCore.SIGNAL("timeout()"), self.TESTFUNC2())
         # self.timerSaat.start(300)
+        #getObject=getPrayerTimes()
+        #getPrayerTimes.__init__(getObject)
         pass
     def TESTFUNC2(self):
-        pass
-
-
-
-
-        print(self.currentDate)
-
 
         # if self.simdikiTarih != self.tarih:
         #     self.label_4.setText(self.label)
         #     self.simdikiTarih = self.tarih
-
-    def setAppereance(self,appereance_choice):
-         if appereance_choice == None:
-             appereance_choice = "Cleanlooks"
-         QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
-    def openLink(self,url=''):
-
-        QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
+        pass
+    def TESTFUNC3(self):
+        pass
 
 if __name__ == "__main__":
     # uygulama.setApplicationName("rastgele bir isim") Phonon modülünün kusursuz çalışması için gerekli.
-    uygulama.setApplicationName("pynamaz")
+    app.setApplicationName("pynamaz")
     program = PyNamaz()
     program.show()
-    sys.exit(uygulama.exec_())
+    sys.exit(app.exec_())
