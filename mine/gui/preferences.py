@@ -1,13 +1,25 @@
 from ConfigParser import SafeConfigParser
 class preferences:
+    prefDict={}
     def __init__(self):
         #TODO should look for a config.ini , if there isnt any, then call returntodefaults
-        pass
+        self.setPreferences()
     def readPreferences(self,key):#takes a preference key and return its value
         config = SafeConfigParser()
         config.read('config.ini')
         return config.get('main', key)
+    def setPreferences(self):#reads all settings and returns them in a dictionary
+        keys=["showintray" ,"playadhan","playwarn","adhansoundpath","warnsoundpath","closeaction","muteinadhantaime","beforefajr","beforesunrise","beforedhduhr","beforeasr","beforemaghrib","beforeisha","fajrwarn","dhuhrwarn","sunrisewarn","asrwarn","ishawarn","maghribwarn"]
+        preferencesDictionary={}
+        config = SafeConfigParser()
+        config.read('config.ini')
+        for key in keys:
+            print key
+            #preferencesDictionary+={key:str(config.get('main', key))}
+            preferencesDictionary=self.merge_two_dicts(preferencesDictionary,{key:str(config.get('main', key))})
 
+        self.prefDict=preferencesDictionary
+        print self.prefDict
     def savePreferences(self):
 
         config = SafeConfigParser()
@@ -62,8 +74,12 @@ class preferences:
         config.set('main', 'maghribWarn','true')
         with open('config.ini', 'w') as f:
             config.write(f)
-#
-#
+    def merge_two_dicts(self,x, y):
+        '''Given two dicts, merge them into a new dict as a shallow copy.'''
+        z = x.copy()
+        z.update(y)
+        return z
+
 # if __name__ == "__main__":
 #     preobj=preferences()
-#     preobj.retunToDefaults()
+

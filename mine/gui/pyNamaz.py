@@ -38,24 +38,17 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
-
+        #creating and instance of preferences class.
+        #this class sets and keeps preferences variables. also it can return sttings to default etc.
+        preferences.__init__
         #Continually updating time
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.setCurrentTime)
         timer.timeout.connect(self.calculateRemainingTime)
         timer.start(1000)
 
-                #Next Prayer Time Section
-        # self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
-        # self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
-        # self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
-
-        #TEST BUTTON
-        preferencesObj=preferences()
-        #self.testbutton.clicked.connect(lambda : preferencesObj.readPreferences('showInTray'))
-
-        self.setPrayerTimes()
-        self.printPrayerTimes()
+        self.setPrayerTimes() #Parsing times file PrayerTimes.txt and setting time variables
+        self.printPrayerTimes() #printing prayer times to the gui
 
         #Menu Section
             #Appereance Preferances
@@ -69,52 +62,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.actionQtcurve.triggered.connect(lambda: self.setAppereance('Qtcurve'))
         self.actionWindows.triggered.connect(lambda: self.setAppereance('Windows'))
 
-        #Current date Section
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-        #Current City Section
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-        #Current Time Section
-        # self.lcdNumberCurrentHour.display(self.currentTimeHour)
-        # self.lcdNumberCurrentMinute.display(self.currentTimeMinute)
-        # self.lcdNumberFajrHour.display(self.fajrTimeHour)
-        # self.lcdNumberFajrMinute.display(self.fajrTimeMinute)
-        # self.lcdNumberSunriseHour.display(self.sunriseTimeHour)
-        # self.lcdNumberSunriseMinute.display(self.sunriseTimeMinute)
-        # self.lcdNumberMaghribHour.display(self.maghribTimeHour)
-        # self.lcdNumberMaghribMinute.display(self.maghribTimeMinute)
-        # self.lcdNumberDhuhrHour.display(self.dhuhrTimeHour)
-        # self.lcdNumberDhuhrMinute.display(self.dhuhrTimeMinute)
-        # self.lcdNumberAsrHour.display(self.asrTimeHour)
-        # self.lcdNumberAsrMinute.display(self.asrTimeMinute)
-        # self.lcdNumberIshaHour.display(self.ishaTimeHour)
-        # self.lcdNumberIshaMinute.display(self.ishaTimeMinute)
-        # self.lcdNumberNextPrayerHour.display(self.nextTimeHour)
-        # self.lcdNumberNextPrayerMinute.display(self.nextTimeMinute)
-
-
-        #Prayer Time Section
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-
-
-
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-
-        #Select Region Section
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-         #Time Warnings Section
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-        #Preferences Section
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
-        #Qadha Counts Section
-        # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-
+    
         #Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
@@ -139,7 +87,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             #print self.currentDate + " "+ self.currentTime
             # pass
         except:
-            print "current time and date cant be obtained from operating system" #should be gui warning
+            print "current time and date can't be obtained from operating system" #should be gui warning
 
         #Finding Current date's prayer times from the file and assigning
         timesFileObject = open("PrayerTimes.txt", 'r')
@@ -189,7 +137,22 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #     self.simdikiTarih = self.tarih
         pass
     def TESTFUNC3(self):
-        pass
+        #warn template
+        if self.nextTime=='Sunrise':
+            pass
+        if self.nextTime=='Fajr':
+            pass
+        if self.nextTime=='Dhuhr':
+            pass
+        if self.nextTime=='Asr':
+            pass
+        if self.nextTime=='Maghrib':
+            pass
+        if self.nextTime=='Asr':
+
+            pass
+
+
     def calculateRemainingTime(self):
         #type casting time variables from string to qtime
         currentQtime=QtCore.QTime(int(self.currentTime.split(":")[0]),int(self.currentTime.split(":")[1]),int(self.currentTime.split(":")[2]))
@@ -235,15 +198,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         if index==5:
             self.nextTime=="Isha"
             self.labelNextPrayer.setText(u"Yatsıya kalan süre")
-
-        # if self.nextTime=="Maghrib":
-        #     self.remainingTime=self.turnSecondsInto()
-        # if self.nextTime=="Asr":
-        #     self.remainingTime=self.turnSecondsInto()
-        # if self.nextTime=="Dhuhr":
-        #     self.remainingTime=self.turnSecondsInto()
-        # if self.nextTime=="Isha":
-        #     self.remainingTime=self.turnSecondsInto()
 
         self.remainingTime=str(self.turnSecondsInto((-1)*seconds)) #turn remaining seconds to hh:mm:ss
         #printing time into remaining time section
