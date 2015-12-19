@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_pynamaz.ui'
 #
-# Created: Sat Dec 19 16:49:59 2015
+# Created: Sat Dec 19 23:14:59 2015
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -259,6 +259,9 @@ class Ui_MainWindow(object):
         self.testbutton = QtGui.QPushButton(self.tab)
         self.testbutton.setGeometry(QtCore.QRect(380, 140, 99, 23))
         self.testbutton.setObjectName(_fromUtf8("testbutton"))
+        self.labelNextPrayer_2 = QtGui.QLabel(self.tab)
+        self.labelNextPrayer_2.setGeometry(QtCore.QRect(10, 10, 171, 78))
+        self.labelNextPrayer_2.setObjectName(_fromUtf8("labelNextPrayer_2"))
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
@@ -299,9 +302,12 @@ class Ui_MainWindow(object):
         self.comboBoxSelectTown.setObjectName(_fromUtf8("comboBoxSelectTown"))
         self.gridLayout_3.addWidget(self.comboBoxSelectTown, 3, 1, 1, 1)
         self.buttonBox_2 = QtGui.QDialogButtonBox(self.tab_2)
-        self.buttonBox_2.setGeometry(QtCore.QRect(160, 400, 160, 25))
+        self.buttonBox_2.setGeometry(QtCore.QRect(280, 260, 160, 25))
         self.buttonBox_2.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox_2.setObjectName(_fromUtf8("buttonBox_2"))
+        self.pushButtonSetTimesManuelly = QtGui.QPushButton(self.tab_2)
+        self.pushButtonSetTimesManuelly.setGeometry(QtCore.QRect(220, 330, 221, 23))
+        self.pushButtonSetTimesManuelly.setObjectName(_fromUtf8("pushButtonSetTimesManuelly"))
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName(_fromUtf8("tab_3"))
@@ -529,7 +535,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuMen.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -548,6 +554,7 @@ class Ui_MainWindow(object):
         self.labelNextPrayer.setText(_translate("MainWindow", "SONRAKİ VAKTE KALAN SÜRE", None))
         self.groupBox_6.setTitle(_translate("MainWindow", "Kalan süre", None))
         self.testbutton.setText(_translate("MainWindow", "test", None))
+        self.labelNextPrayer_2.setText(_translate("MainWindow", "SONRAKİ VAKTE KALAN SÜRE", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Anasayfa", None))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox", None))
         self.labelCountry.setText(_translate("MainWindow", "ÜLKE", None))
@@ -555,6 +562,7 @@ class Ui_MainWindow(object):
         self.labelDistrict.setText(_translate("MainWindow", "İLÇE", None))
         self.labelTown.setText(_translate("MainWindow", "KÖY/KASABA", None))
         self.comboBoxSelectCountry.setItemText(0, _translate("MainWindow", "türkei", None))
+        self.pushButtonSetTimesManuelly.setText(_translate("MainWindow", "Manuel olarak Ayarla", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Bölge", None))
         self.checkBoxAsrWarn.setText(_translate("MainWindow", "İkindi", None))
         self.checkBoxMaghribWarn.setText(_translate("MainWindow", "Akşam", None))

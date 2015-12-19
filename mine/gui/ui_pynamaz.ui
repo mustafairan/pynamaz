@@ -39,7 +39,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -622,12 +622,26 @@
           <string>test</string>
          </property>
         </widget>
+        <widget class="QLabel" name="labelNextPrayer_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>171</width>
+           <height>78</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SONRAKİ VAKTE KALAN SÜRE</string>
+         </property>
+        </widget>
         <zorder>groupBox_6</zorder>
         <zorder>groupBox_2</zorder>
         <zorder>checkBox_13</zorder>
         <zorder>gridLayoutWidget_7</zorder>
         <zorder>horizontalLayoutWidget</zorder>
         <zorder>testbutton</zorder>
+        <zorder>labelNextPrayer_2</zorder>
        </widget>
        <widget class="QWidget" name="tab_2">
         <attribute name="title">
@@ -715,14 +729,27 @@
         <widget class="QDialogButtonBox" name="buttonBox_2">
          <property name="geometry">
           <rect>
-           <x>160</x>
-           <y>400</y>
+           <x>280</x>
+           <y>260</y>
            <width>160</width>
            <height>25</height>
           </rect>
          </property>
          <property name="standardButtons">
           <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButtonSetTimesManuelly">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>330</y>
+           <width>221</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Manuel olarak Ayarla</string>
          </property>
         </widget>
        </widget>

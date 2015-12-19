@@ -19,7 +19,7 @@ class preferences:
             preferencesDictionary=self.merge_two_dicts(preferencesDictionary,{key:str(config.get('main', key))})
 
         self.prefDict=preferencesDictionary
-        print self.prefDict
+        #print self.prefDict
     def savePreferences(self):
 
         config = SafeConfigParser()
