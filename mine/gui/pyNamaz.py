@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys, urllib
-#from ConfigParser import SafeConfigParser
+import sys
 from preferences import *
 from prayerTimes import *
 
@@ -23,7 +22,6 @@ from ui_pynamaz import Ui_MainWindow
 # uygulama = QtGui.QApplication(sys.argv)
 app = QtGui.QApplication(sys.argv)
 
-
 class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     currentTime="88:88:88"
     fajrTime="88:88"
@@ -32,8 +30,11 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     sunriseTime="88:88"
     maghribTime="88:88"
     ishaTime="88:88"
-    nextTime="88:88"
+    nextTime=""#indicates next prayer time. it can be Asr,Dhuhr,Maghrib,Isha or Fajr
     currentDate=""
+    remainingTime="00:00:00"#indicates remaining time for the next prayer time
+    differences=[]
+
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
@@ -41,12 +42,17 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #Continually updating time
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.setCurrentTime)
+        timer.timeout.connect(self.calculateRemainingTime)
         timer.start(1000)
+
+                #Next Prayer Time Section
+        # self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
+        # self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
+        # self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
 
         #TEST BUTTON
         preferencesObj=preferences()
         #self.testbutton.clicked.connect(lambda : preferencesObj.readPreferences('showInTray'))
-        self.testbutton.clicked.connect(preferencesObj.retunToDefaults)
 
         self.setPrayerTimes()
         self.printPrayerTimes()
@@ -91,7 +97,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #Prayer Time Section
         # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
 
-        #Next Prayer Time Section
+
+
+
         # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
 
 
@@ -108,9 +116,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         # self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
 
         #Link Buttons Section
-        self.pushButton_2.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
-        self.pushButton_3.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
-        self.pushButton_first.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
+        self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
+        self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
+        self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
     def setCurrentTime(self): #sets and continually updates then prints current time
         #TODO Should warn the user to set his system clock properly
         self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
@@ -128,8 +136,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         try:
             self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
             self.currentDate = QtCore.QDate().currentDate().toString("dd.MM.yy")
-            print self.currentDate + " "+ self.currentTime
-            pass
+            #print self.currentDate + " "+ self.currentTime
+            # pass
         except:
             print "current time and date cant be obtained from operating system" #should be gui warning
 
@@ -144,8 +152,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
                 self.maghribTime=line.split(' ')[5]
                 self.ishaTime=line.split(' ')[6]
     def printPrayerTimes(self): #prints prayer times to the gui
-        #self.labelCurrentDate.setText(self.currentDate)
-
+        self.labelCurrentDate.setText(self.currentDate)
         self.lcdNumberFajrHour.display(self.fajrTime.split(':')[0])
         self.lcdNumberFajrMinute.display(self.fajrTime.split(':')[1])
         self.lcdNumberSunriseHour.display(self.sunriseTime.split(':')[0])
@@ -163,7 +170,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             appereance_choice = "Cleanlooks"
          QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
     def openLink(self,url=''):
-
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
     def TESTFUNC(self):
         #print QtCore.QTime.currentTime()
@@ -184,6 +190,74 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         pass
     def TESTFUNC3(self):
         pass
+    def calculateRemainingTime(self):
+        #type casting time variables from string to qtime
+        currentQtime=QtCore.QTime(int(self.currentTime.split(":")[0]),int(self.currentTime.split(":")[1]),int(self.currentTime.split(":")[2]))
+        fajrQtime=QtCore.QTime(int(self.fajrTime.split(":")[0]),int(self.fajrTime.split(":")[1]),0)
+        asrQtime=QtCore.QTime(int(self.asrTime.split(":")[0]),int(self.asrTime.split(":")[1]),0)
+        dhuhrQtime=QtCore.QTime(int(self.dhuhrTime.split(":")[0]),int(self.dhuhrTime.split(":")[1]),0)
+        sunriseQtime=QtCore.QTime(int(self.sunriseTime.split(":")[0]),int(self.sunriseTime.split(":")[1]),0)
+        maghribQtime=QtCore.QTime(int(self.maghribTime.split(":")[0]),int(self.maghribTime.split(":")[1]),0)
+        ishaQtime=QtCore.QTime(int(self.ishaTime.split(":")[0]),int(self.ishaTime.split(":")[1]),0)
+
+        #to find out the time interval for the next time, we should find the minimum of negative differrences among times and current time
+        #QtCore.QTime.secsTo(param1,param2) returns the two time object's difference in second
+        differences=[QtCore.QTime.secsTo(fajrQtime,currentQtime),
+                     QtCore.QTime.secsTo(sunriseQtime,currentQtime),
+                     QtCore.QTime.secsTo(dhuhrQtime,currentQtime),
+                     QtCore.QTime.secsTo(asrQtime,currentQtime),
+                     QtCore.QTime.secsTo(maghribQtime,currentQtime),
+                     QtCore.QTime.secsTo(ishaQtime,currentQtime)]
+        #print differences
+
+        #print self.turnSecondsInto(differences[4])
+
+        for index in range(0,6):
+            if differences[index] < 0:
+                seconds=differences[index]
+                break
+
+        if index==0:
+            self.nextTime=="Fajr"
+            self.labelNextPrayer.setText(u"İmsağa kalan süre")
+        if index==1:
+            self.nextTime=="Sunrise"
+            self.labelNextPrayer.setText(u"Güneşe kalan süre")
+        if index==2:
+            self.nextTime=="Dhuhr"
+            self.labelNextPrayer.setText(u"Öğleye kalan süre")
+        if index==3:
+            self.nextTime=="Asr"
+            self.labelNextPrayer.setText(u"İkindiye kalan süre")
+        if index==4:
+            self.nextTime=="Maghrib"
+            self.labelNextPrayer.setText(u"Akşama kalan süre")
+        if index==5:
+            self.nextTime=="Isha"
+            self.labelNextPrayer.setText(u"Yatsıya kalan süre")
+
+        # if self.nextTime=="Maghrib":
+        #     self.remainingTime=self.turnSecondsInto()
+        # if self.nextTime=="Asr":
+        #     self.remainingTime=self.turnSecondsInto()
+        # if self.nextTime=="Dhuhr":
+        #     self.remainingTime=self.turnSecondsInto()
+        # if self.nextTime=="Isha":
+        #     self.remainingTime=self.turnSecondsInto()
+
+        self.remainingTime=str(self.turnSecondsInto((-1)*seconds)) #turn remaining seconds to hh:mm:ss
+        #printing time into remaining time section
+        self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
+        self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
+        self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
+
+
+    def turnSecondsInto(self,seconds):#turns seconds into hour minute and second . returns as string hh:mm:ss
+        days, seconds = divmod(seconds, 24*60*60)
+        hours, seconds = divmod(seconds, 60*60)
+        minutes, seconds = divmod(seconds, 60)
+        return str(hours)+":"+str(minutes)+":"+str(seconds)
+
 
 if __name__ == "__main__":
     # uygulama.setApplicationName("rastgele bir isim") Phonon modülünün kusursuz çalışması için gerekli.
