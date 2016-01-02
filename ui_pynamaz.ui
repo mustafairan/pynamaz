@@ -39,7 +39,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -433,19 +433,6 @@
           </layout>
          </widget>
         </widget>
-        <widget class="QCheckBox" name="checkBox_13">
-         <property name="geometry">
-          <rect>
-           <x>390</x>
-           <y>470</y>
-           <width>86</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>sessiz</string>
-         </property>
-        </widget>
         <widget class="QWidget" name="gridLayoutWidget_7">
          <property name="geometry">
           <rect>
@@ -456,28 +443,14 @@
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Saat</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
+          <item row="1" column="0">
            <widget class="QLabel" name="labelCurrentDate">
             <property name="text">
              <string>::tarih::</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="labelCurrentCity">
-            <property name="text">
-             <string>Ankara</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="4">
+          <item row="1" column="2">
            <widget class="QLCDNumber" name="lcdNumberCurrentMinute">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -496,7 +469,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="3">
+          <item row="1" column="1">
            <widget class="QLCDNumber" name="lcdNumberCurrentHour">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -515,7 +488,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="5">
+          <item row="1" column="3">
            <widget class="QLCDNumber" name="lcdNumberCurrentSecond">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -609,455 +582,10 @@
           <string>Kalan süre</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="testbutton">
-         <property name="geometry">
-          <rect>
-           <x>380</x>
-           <y>140</y>
-           <width>99</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>test</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="labelNextPrayer_2">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>171</width>
-           <height>78</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>SONRAKİ VAKTE KALAN SÜRE</string>
-         </property>
-        </widget>
         <zorder>groupBox_6</zorder>
         <zorder>groupBox_2</zorder>
-        <zorder>checkBox_13</zorder>
         <zorder>gridLayoutWidget_7</zorder>
         <zorder>horizontalLayoutWidget</zorder>
-        <zorder>testbutton</zorder>
-        <zorder>labelNextPrayer_2</zorder>
-       </widget>
-       <widget class="QWidget" name="tab_2">
-        <attribute name="title">
-         <string>Bölge</string>
-        </attribute>
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>0</y>
-           <width>451</width>
-           <height>261</height>
-          </rect>
-         </property>
-         <property name="title">
-          <string>GroupBox</string>
-         </property>
-         <widget class="QWidget" name="gridLayoutWidget_3">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>30</y>
-            <width>411</width>
-            <height>211</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
-            <widget class="QLabel" name="labelCountry">
-             <property name="text">
-              <string>ÜLKE</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="labelCity">
-             <property name="text">
-              <string>ŞEHİR</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="labelDistrict">
-             <property name="text">
-              <string>İLÇE</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="labelTown">
-             <property name="text">
-              <string>KÖY/KASABA</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="comboBoxSelectCountry">
-             <item>
-              <property name="text">
-               <string>türkei</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="comboBoxSelectCity"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="comboBoxSelectDistrict">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QComboBox" name="comboBoxSelectTown">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QDialogButtonBox" name="buttonBox_2">
-         <property name="geometry">
-          <rect>
-           <x>280</x>
-           <y>260</y>
-           <width>160</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="standardButtons">
-          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButtonSetTimesManuelly">
-         <property name="geometry">
-          <rect>
-           <x>220</x>
-           <y>330</y>
-           <width>221</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Manuel olarak Ayarla</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="tab_3">
-        <attribute name="title">
-         <string>Uyarılar</string>
-        </attribute>
-        <widget class="QWidget" name="gridLayoutWidget_4">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>10</y>
-           <width>451</width>
-           <height>301</height>
-          </rect>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBoxFacrWarn"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="spinBoxAsrWarn"/>
-          </item>
-          <item row="7" column="1">
-           <widget class="QDialogButtonBox" name="buttonBox">
-            <property name="standardButtons">
-             <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="checkBoxAsrWarn">
-            <property name="text">
-             <string>İkindi</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="spinBoxDhuhrWarn"/>
-          </item>
-          <item row="4" column="1">
-           <widget class="QSpinBox" name="spinBoxMaghribWarn"/>
-          </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="checkBoxMaghribWarn">
-            <property name="text">
-             <string>Akşam</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QCheckBox" name="checkBoxDhuhrWarn">
-            <property name="text">
-             <string>Öğle</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QCheckBox" name="checkBoxIshaWarn">
-            <property name="text">
-             <string>Yatsı</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QSpinBox" name="spinBoxIshaWarn"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="checkBoxFajrWarn">
-            <property name="text">
-             <string>İmsak</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="checkBoxSunriseWarn">
-            <property name="text">
-             <string>Güneş</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="spinBoxSunriseWarn"/>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QGroupBox" name="groupBox_4">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>0</y>
-           <width>471</width>
-           <height>271</height>
-          </rect>
-         </property>
-         <property name="title">
-          <string>Vakit Uyarıları</string>
-         </property>
-        </widget>
-        <zorder>groupBox_4</zorder>
-        <zorder>gridLayoutWidget_4</zorder>
-       </widget>
-       <widget class="QWidget" name="tab_4">
-        <attribute name="title">
-         <string>Seçenekler</string>
-        </attribute>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>9</y>
-           <width>471</width>
-           <height>331</height>
-          </rect>
-         </property>
-         <property name="title">
-          <string>Seçenekler</string>
-         </property>
-         <widget class="QWidget" name="gridLayoutWidget_5">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>431</width>
-            <height>291</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="10" column="0">
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string>Kapatma ayarı</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QCheckBox" name="checkBoxPlayWarnSound">
-             <property name="text">
-              <string>Uyarı sesleri çal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="checkBoxShowInTray">
-             <property name="text">
-              <string>Sistem tepsisinde simge göster</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Ezan sesi</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QCheckBox" name="checkBoxPlayAdhan">
-             <property name="text">
-              <string>Vakitlerde ezan oku</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QCheckBox" name="checkBoxMuteInAdhanTime">
-             <property name="text">
-              <string>Ezan vaktinde sesi kapat</string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="0">
-            <widget class="QLabel" name="label_26">
-             <property name="text">
-              <string>Uyarı sesi</string>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="1">
-            <widget class="QComboBox" name="comboBoxCloseOption">
-             <item>
-              <property name="text">
-               <string>Tamamen kapat</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Gizle</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="8" column="1">
-            <widget class="QToolButton" name="toolButton">
-             <property name="text">
-              <string>...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="1">
-            <widget class="QToolButton" name="toolButton_2">
-             <property name="text">
-              <string>...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QCheckBox" name="checkBoxSystemNotifications">
-             <property name="text">
-              <string>Sistem bildirimleri açık</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QDialogButtonBox" name="buttonBox_4">
-         <property name="geometry">
-          <rect>
-           <x>150</x>
-           <y>330</y>
-           <width>327</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="standardButtons">
-          <set>QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults|QDialogButtonBox::Save</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="tab_5">
-        <attribute name="title">
-         <string>Kazalar</string>
-        </attribute>
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>0</y>
-           <width>311</width>
-           <height>311</height>
-          </rect>
-         </property>
-         <property name="title">
-          <string>GroupBox</string>
-         </property>
-         <widget class="QWidget" name="gridLayoutWidget_6">
-          <property name="geometry">
-           <rect>
-            <x>40</x>
-            <y>30</y>
-            <width>231</width>
-            <height>261</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_7">
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_21">
-             <property name="text">
-              <string>Öğle</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_22">
-             <property name="text">
-              <string>Sabah</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>Akşam</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_20">
-             <property name="text">
-              <string>İkindi</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="label_18">
-             <property name="text">
-              <string>Yatsı</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBoxZuhrCount"/>
-           </item>
-           <item row="3" column="1">
-            <widget class="QSpinBox" name="spinBoxAsrCount"/>
-           </item>
-           <item row="4" column="1">
-            <widget class="QSpinBox" name="spinBoxMaghribCount"/>
-           </item>
-           <item row="5" column="1">
-            <widget class="QSpinBox" name="spinBoxIshaCount"/>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBoxFajrCount"/>
-           </item>
-          </layout>
-         </widget>
-        </widget>
        </widget>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
@@ -1150,15 +678,7 @@
      <addaction name="actionCDE"/>
      <addaction name="actionOxygen"/>
     </widget>
-    <widget class="QMenu" name="menuGizle">
-     <property name="title">
-      <string>Gizle</string>
-     </property>
-    </widget>
-    <addaction name="menuGizle"/>
     <addaction name="menuG_r_n_m"/>
-    <addaction name="actionG_ncelle_2"/>
-    <addaction name="action_k"/>
    </widget>
    <addaction name="menuMen"/>
   </widget>

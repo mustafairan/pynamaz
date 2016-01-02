@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from preferences import *
-from prayerTimes import *
+
+
 
 try:
     from PyQt4 import QtCore, QtGui
@@ -39,10 +39,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
-        #creating and instance of preferences class.
-        #this class sets and keeps preferences variables. also it can return sttings to default etc.
-        preferences.__init__
-        print preferences.prefDict
+
 
         #prayerTimesObj=prayerTimes()
         #TODO openup prayerTimes to manually set times
