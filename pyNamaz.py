@@ -2,8 +2,6 @@
 
 import sys
 
-
-
 try:
     from PyQt4 import QtCore, QtGui
 except:
@@ -57,21 +55,21 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         #Menu Section
             #Appereance Preferances
-        self.actionCleanlooks.triggered.connect(lambda: self.setAppereance('Cleanlooks'))
-        self.actionPlastique.triggered.connect(lambda: self.setAppereance('Plastique'))
-        self.actionPlastique.triggered.connect(lambda: self.setAppereance('Gtk'))
-        self.actionBespin.triggered.connect(lambda: self.setAppereance('Bespin'))
-        self.actionCDE.triggered.connect(lambda: self.setAppereance('CDE'))
-        self.actionMotif.triggered.connect(lambda: self.setAppereance('Motif'))
-        self.actionOxygen.triggered.connect(lambda: self.setAppereance('Oxygen'))
-        self.actionQtcurve.triggered.connect(lambda: self.setAppereance('Qtcurve'))
-        self.actionWindows.triggered.connect(lambda: self.setAppereance('Windows'))
-
+        self.actionCleanlooks.triggered.connect(lambda: self.setAppearance('Cleanlooks'))
+        self.actionPlastique.triggered.connect(lambda: self.setAppearance('Plastique'))
+        self.actionPlastique.triggered.connect(lambda: self.setAppearance('Gtk'))
+        self.actionBespin.triggered.connect(lambda: self.setAppearance('Bespin'))
+        self.actionCDE.triggered.connect(lambda: self.setAppearance('CDE'))
+        self.actionMotif.triggered.connect(lambda: self.setAppearance('Motif'))
+        self.actionOxygen.triggered.connect(lambda: self.setAppearance('Oxygen'))
+        self.actionQtcurve.triggered.connect(lambda: self.setAppearance('Qtcurve'))
+        self.actionWindows.triggered.connect(lambda: self.setAppearance('Windows'))
 
         #Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
         self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
+
     def setCurrentTime(self): #sets and continually updates then prints current time
         #TODO Should warn the user to set his system clock properly
         self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
@@ -124,28 +122,15 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberMaghribMinute.display(self.maghribTime.split(':')[1])
         self.lcdNumberIshaHour.display(self.ishaTime.split(':')[0])
         self.lcdNumberIshaMinute.display(self.ishaTime.split(':')[1])
-        def setAppereance(self,appereance_choice):
+    def setAppearance(self,appereance_choice):
          if appereance_choice == None:
             appereance_choice = "Cleanlooks"
          QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
     def openLink(self,url=''):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
     def TESTFUNC(self):
-        #print QtCore.QTime.currentTime()
-        #currentDate = QtCore.QDate().currentDate().toString("dd MMMM yyyy")
-        #print(currentDate)
-
-        # self.timerSaat = QtCore.QTimer()
-        # self.connect(self.timerSaat, QtCore.SIGNAL("timeout()"), self.TESTFUNC2())
-        # self.timerSaat.start(300)
-        #getObject=getPrayerTimes()
-        #getPrayerTimes.__init__(getObject)
         pass
     def TESTFUNC2(self):
-
-        # if self.simdikiTarih != self.tarih:
-        #     self.label_4.setText(self.label)
-        #     self.simdikiTarih = self.tarih
         pass
     def TESTFUNC3(self):
         #warn template
@@ -167,14 +152,25 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     def calculateRemainingTime(self):
         #type casting time variables from string to qtime
         #TODO following type castings should be done with fromstring() function from QTime
-        currentQtime=QtCore.QTime(int(self.currentTime.split(":")[0]),int(self.currentTime.split(":")[1]),int(self.currentTime.split(":")[2]))
-        fajrQtime=QtCore.QTime(int(self.fajrTime.split(":")[0]),int(self.fajrTime.split(":")[1]),0)
-        asrQtime=QtCore.QTime(int(self.asrTime.split(":")[0]),int(self.asrTime.split(":")[1]),0)
-        dhuhrQtime=QtCore.QTime(int(self.dhuhrTime.split(":")[0]),int(self.dhuhrTime.split(":")[1]),0)
-        sunriseQtime=QtCore.QTime(int(self.sunriseTime.split(":")[0]),int(self.sunriseTime.split(":")[1]),0)
-        maghribQtime=QtCore.QTime(int(self.maghribTime.split(":")[0]),int(self.maghribTime.split(":")[1]),0)
-        ishaQtime=QtCore.QTime(int(self.ishaTime.split(":")[0]),int(self.ishaTime.split(":")[1]),0)
-        nextFajrQtime=QtCore.QTime(int(self.nextFajrTime.split(":")[0]),int(self.nextFajrTime.split(":")[1]),0)
+
+        fajrQtime=QtCore.QTime.fromString(self.fajrTime,"hh:mm")
+        currentQtime=QtCore.QTime.fromString(self.currentTime,"hh:mm:ss")
+        asrQtime=QtCore.QTime.fromString(self.asrTime,"hh:mm")
+        dhuhrQtime=QtCore.QTime.fromString(self.dhuhrTime,"hh:mm")
+        sunriseQtime=QtCore.QTime.fromString(self.sunriseTime,"hh:mm")
+        maghribQtime=QtCore.QTime.fromString(self.maghribTime,"hh:mm")
+        ishaQtime=QtCore.QTime.fromString(self.ishaTime,"hh:mm")
+        nextFajrQtime=QtCore.QTime.fromString(self.nextFajrTime,"hh:mm")
+        # currentQtime=QtCore.QTime(int(self.currentTime.split(":")[0]),int(self.currentTime.split(":")[1]),int(self.currentTime.split(":")[2]))
+        # fajrQtime=QtCore.QTime(int(self.fajrTime.split(":")[0]),int(self.fajrTime.split(":")[1]),0)
+        # asrQtime=QtCore.QTime(int(self.asrTime.split(":")[0]),int(self.asrTime.split(":")[1]),0)
+        # dhuhrQtime=QtCore.QTime(int(self.dhuhrTime.split(":")[0]),int(self.dhuhrTime.split(":")[1]),0)
+        # sunriseQtime=QtCore.QTime(int(self.sunriseTime.split(":")[0]),int(self.sunriseTime.split(":")[1]),0)
+        # maghribQtime=QtCore.QTime(int(self.maghribTime.split(":")[0]),int(self.maghribTime.split(":")[1]),0)
+        # ishaQtime=QtCore.QTime(int(self.ishaTime.split(":")[0]),int(self.ishaTime.split(":")[1]),0)
+        # nextFajrQtime=QtCore.QTime(int(self.nextFajrTime.split(":")[0]),int(self.nextFajrTime.split(":")[1]),0)
+
+
         #to find out the time interval for the next time, we should find the minimum of negative differrences among times and current time
         #QtCore.QTime.secsTo(param1,param2) returns the two time object's difference in second
         differences=[QtCore.QTime.secsTo(fajrQtime,currentQtime),
@@ -233,8 +229,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
 
 if __name__ == "__main__":
-    # uygulama.setApplicationName("rastgele bir isim") Phonon modülünün kusursuz çalışması için gerekli.
-    app.setApplicationName("pynamaz")
+    app.setApplicationName("pynamaz") #necessary for phonon module.
     program = PyNamaz()
     program.show()
     sys.exit(app.exec_())
