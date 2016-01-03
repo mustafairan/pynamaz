@@ -96,8 +96,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         nextDate=currentDate.addDays(1)
         nextDate= nextDate.toString("dd.MM.yy")
         #Finding Current date's prayer times from the file and assigning
-        
-        timesFileObject = open("PrayerTimes.txt", 'r')
+
+        #TODO prayertimes.txt path should be specified with more efficient way
+        timesFileObject = open(r"../data/PrayerTimes.txt", 'r')
         for line in timesFileObject:
             if line.split(' ')[0]==self.currentDate:
                 self.fajrTime=line.split(' ')[1]
