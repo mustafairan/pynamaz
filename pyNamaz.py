@@ -96,6 +96,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         nextDate=currentDate.addDays(1)
         nextDate= nextDate.toString("dd.MM.yy")
         #Finding Current date's prayer times from the file and assigning
+        
         timesFileObject = open("PrayerTimes.txt", 'r')
         for line in timesFileObject:
             if line.split(' ')[0]==self.currentDate:
@@ -128,26 +129,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
          QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
     def openLink(self,url=''):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
-    def TESTFUNC(self):
-        pass
-    def TESTFUNC2(self):
-        pass
-    def TESTFUNC3(self):
-        #warn template
-        if self.nextTime=='Sunrise':
-            pass
-        if self.nextTime=='Fajr':
-            pass
-        if self.nextTime=='Dhuhr':
-            pass
-        if self.nextTime=='Asr':
-            pass
-        if self.nextTime=='Maghrib':
-            pass
-        if self.nextTime=='Asr':
-
-            pass
-
 
     def calculateRemainingTime(self):
         #type casting time variables from string to qtime
