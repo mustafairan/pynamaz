@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_pynamaz.ui'
 #
-# Created: Wed Jan  6 20:08:29 2016
+# Created: Thu Jan  7 01:41:05 2016
 #      by: PyQt4 UI code generator 4.11.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -247,6 +247,9 @@ class Ui_MainWindow(object):
         self.groupBox_6 = QtGui.QGroupBox(self.tab)
         self.groupBox_6.setGeometry(QtCore.QRect(10, 360, 411, 111))
         self.groupBox_6.setObjectName(_fromUtf8("groupBox_6"))
+        self.pushButtonOpenPrayerTimesText = QtGui.QPushButton(self.tab)
+        self.pushButtonOpenPrayerTimesText.setGeometry(QtCore.QRect(248, 470, 221, 23))
+        self.pushButtonOpenPrayerTimesText.setObjectName(_fromUtf8("pushButtonOpenPrayerTimesText"))
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_6 = QtGui.QWidget()
         self.tab_6.setObjectName(_fromUtf8("tab_6"))
@@ -346,6 +349,7 @@ class Ui_MainWindow(object):
         self.labelCurrentDate.setText(_translate("MainWindow", "::tarih::", None))
         self.labelNextPrayer.setText(_translate("MainWindow", "SONRAKİ VAKTE KALAN SÜRE", None))
         self.groupBox_6.setTitle(_translate("MainWindow", "Kalan süre", None))
+        self.pushButtonOpenPrayerTimesText.setText(_translate("MainWindow", "Namaz vakitleri dosyasını aç", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Anasayfa", None))
         self.pushButton_2.setText(_translate("MainWindow", "mustafairan.wordpress.com", None))
         self.label_6.setText(_translate("MainWindow", "Vakit Bağlantısı", None))

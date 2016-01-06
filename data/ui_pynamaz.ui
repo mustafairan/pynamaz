@@ -582,10 +582,24 @@
           <string>Kalan süre</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="pushButtonOpenPrayerTimesText">
+         <property name="geometry">
+          <rect>
+           <x>248</x>
+           <y>470</y>
+           <width>221</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Namaz vakitleri dosyasını aç</string>
+         </property>
+        </widget>
         <zorder>groupBox_6</zorder>
         <zorder>groupBox_2</zorder>
         <zorder>gridLayoutWidget_7</zorder>
         <zorder>horizontalLayoutWidget</zorder>
+        <zorder>pushButtonOpenPrayerTimesText</zorder>
        </widget>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">

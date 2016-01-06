@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #xyz
 import sys
-
+import os #just for os.system
 try:
     from PyQt4 import QtCore, QtGui
 except:
@@ -35,7 +35,10 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
+
         self.setupUi(self)
+        QtGui.QMainWindow.setWindowTitle(self,"pyNamaz")
+
 
         QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
                                       u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
@@ -43,7 +46,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
                                       u"Dosya formatı gg.aa.yy imsak öğle ikindi akşam yatsı\n"
                                       u"şeklindedir. Vakit aralarında birer boşluk bırakınız. Örneğin 2 ocak 2016 ve 3 ocak 2016 için dosyaya şunu yazmalısınız:\n"
                                       u"\n\n02.01.16 05:27 06:58 11:54 14:15 16:37 18:02\n03.01.16 05:33 07:03 12:01 14:24 16:46 18:10\n"
-                                      u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.",u"Anladım")
+                                      u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.\n"
+                                      u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
 
         #prayerTimesObj=prayerTimes()
         #TODO openup prayerTimes to manually set times
@@ -71,6 +75,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.actionQtcurve.triggered.connect(lambda: self.setAppearance('Qtcurve'))
         self.actionWindows.triggered.connect(lambda: self.setAppearance('Windows'))
 
+
+        self.pushButtonOpenPrayerTimesText.clicked.connect(self.openPrayerTimesText)
+
         #Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
@@ -79,6 +86,14 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
 
 
+    def openPrayerTimesText(self):
+        """
+        opens PrayerTimes.txt file with a text editor
+        """
+        if sys.platform.startswith("linux"):
+            os.system('xdg-open "../data/PrayerTimes.txt"')
+        else:
+            os.system('start "../data/PrayerTimes.txt"') #TODO this usage can be problem. file paths should be specified in more efficient way. should be tested in windows systems
 
 
     def setCurrentTime(self): #sets and continually updates then prints current time
@@ -313,6 +328,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
                  self.nextTime="Fajr"
                  seconds=abs(QtCore.QTime.secsTo(fajrQtime,currentQtime))
                  self.labelNextPrayer.setText(u"İmsağa kalan süre")
+
         self.remainingTime=self.turnSecondsInto(seconds)
 
         #printing time into remaining time section

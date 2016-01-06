@@ -1,3 +1,4 @@
+#Dosya formatı gg.aa.yy imsak güneş öğle ikindi akşam yatsı şeklindedir. aralara sadece boşluk koyun.
 01.01.16 05:27 06:58 11:54 14:15 16:37 18:02
 02.01.16 05:27 06:58 11:54 14:15 16:37 18:02
 03.01.16 05:33 07:03 12:01 14:24 16:46 18:10
