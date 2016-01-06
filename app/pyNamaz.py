@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+#xyz
 import sys
 
 try:
@@ -189,7 +189,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
 
-
     def calculateRemainingTime2(self): #no use anymore
         #TODO following type castings should be done with fromstring() function from QTime
         #type casting time variables from string to qtime
@@ -252,9 +251,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
 
-
-
-
     def calculateRemainingTime3(self):
         #type casting time variables from string to qtime
         fajrQtime=QtCore.QTime.fromString(self.fajrTime+":00","hh:mm:ss")
@@ -267,43 +263,49 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         nextFajrQtime=QtCore.QTime.fromString(self.nextFajrTime+":00","hh:mm:ss")
         midnightQtime=QtCore.QTime.fromString("00:00:00","hh:mm:ss")
 
+
+        # if   currentQtime==QtCore.QTime.fromString("23:59:59","hh:mm:ss"): #TODO midnight (00:00) must trick updating time ,date and prayer timess
+        #     print "gecti"
+        #     self.setCurrentTime()
+        #     self.setPrayerTimes()
+
+
         if fajrQtime<=currentQtime<=ishaQtime:#time is bigger than fajr and smaller than Isha time (after fajr before İsha)
             if fajrQtime<currentQtime<=sunriseQtime:
                 self.nextTime="Sunrise"
+                seconds=abs(QtCore.QTime.secsTo(sunriseQtime,currentQtime))
                 self.labelNextPrayer.setText(u"Güneşe kalan süre")
             elif sunriseQtime<currentQtime<=dhuhrQtime:
                 self.nextTime="Dhuhr"
+                seconds=abs(QtCore.QTime.secsTo(dhuhrQtime,currentQtime))
                 self.labelNextPrayer.setText(u"Öğleye kalan süre")
             elif dhuhrQtime<currentQtime<=asrQtime:
                 self.nextTime="Asr"
+                seconds=abs(QtCore.QTime.secsTo(asrQtime,currentQtime))
                 self.labelNextPrayer.setText(u"İkindiye kalan süre")
             elif asrQtime<currentQtime<=maghribQtime:
                 self.nextTime="Maghrib"
+                seconds=abs(QtCore.QTime.secsTo(maghribQtime,currentQtime))
                 self.labelNextPrayer.setText(u"Akşama kalan süre")
             elif maghribQtime<currentQtime<=ishaQtime:
                 self.nextTime="Isha"
+                seconds=abs(QtCore.QTime.secsTo(ishaQtime,currentQtime))
                 self.labelNextPrayer.setText(u"Yatsıya kalan süre")
         else: #after isha before next fajr
             if  currentQtime>ishaQtime and currentQtime>midnightQtime and currentQtime>fajrQtime : #we are in the range ishatime-midnight (after isha before midnight )
                  self.nextTime="Fajr"
+                 seconds=abs(QtCore.QTime.secsTo(fajrQtime,currentQtime))
                  self.labelNextPrayer.setText(u"İmsağa kalan süre")
-            elif currentQtime>midnightQtime and currentQtime<fajrQtime and currentQtime<ishaQtime: #we are in the range midnight-Fajrtime (after midnight before fajr)
+            elif currentQtime>=midnightQtime and currentQtime<=fajrQtime and currentQtime<=ishaQtime: #we are in the range midnight-Fajrtime (after midnight before fajr)
                  self.nextTime="Fajr"
+                 seconds=abs(QtCore.QTime.secsTo(fajrQtime,currentQtime))
                  self.labelNextPrayer.setText(u"İmsağa kalan süre")
+        self.remainingTime=self.turnSecondsInto(seconds)
 
-
-
-        #print(currentQtime)
-        #self.remainingTime=str(self.turnSecondsInto((-1)*seconds)) #turn remaining seconds to hh:mm:ss
         #printing time into remaining time section
         self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
-
-
-
-
-
 
     def turnSecondsInto(self,seconds):#turns seconds into hour minute and second . returns as string hh:mm:ss
         days, seconds = divmod(seconds, 24*60*60)
