@@ -3,6 +3,6 @@
 Terminal=false
 Type=Application
 Name=pyNamaz
-Exec=cd /home/mnc/pynamaz-smartgit/app && /usr/bin/python /home/mnc/pynamaz-smartgit/app/pyNamaz.py
-Icon=/home/mnc/pynamaz-smartgit/data/mosque.png
+Exec=cd /home/mnc/pynamaz-smartgit-masterbranch-sunumversiyon/app && /usr/bin/python /home/mnc/pynamaz-smartgit-masterbranch-sunumversiyon/app/pyNamaz.py
+Icon=/home/mnc/pynamaz-smartgit-masterbranch-sunumversiyon/data/mosque.png
 

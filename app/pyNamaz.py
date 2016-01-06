@@ -37,13 +37,20 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
 
+        QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
+                                      u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
+                                      u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
+                                      u"Dosya formatı gg.aa.yy imsak öğle ikindi akşam yatsı\n"
+                                      u"şeklindedir. Vakit aralarında birer boşluk bırakınız. Örneğin 2 ocak 2016 ve 3 ocak 2016 için dosyaya şunu yazmalısınız:\n"
+                                      u"\n\n02.01.16 05:27 06:58 11:54 14:15 16:37 18:02\n03.01.16 05:33 07:03 12:01 14:24 16:46 18:10\n"
+                                      u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.",u"Anladım")
 
         #prayerTimesObj=prayerTimes()
         #TODO openup prayerTimes to manually set times
         #TODO self.pushButtonSetTimesManuelly.clicked.connect(lambda: prayerTimes.getTimesManuelly(prayerTimesObj))
 
 
-        #Continually updating time
+        #Continually updating time and remaining time
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.setCurrentTime)
         timer.timeout.connect(self.calculateRemainingTime3)
@@ -68,6 +75,11 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
         self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
+        self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))
+
+
+
+
 
     def setCurrentTime(self): #sets and continually updates then prints current time
         #TODO Should warn the user to set his system clock properly
@@ -292,9 +304,10 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
                 seconds=abs(QtCore.QTime.secsTo(ishaQtime,currentQtime))
                 self.labelNextPrayer.setText(u"Yatsıya kalan süre")
         else: #after isha before next fajr
+
             if  currentQtime>ishaQtime and currentQtime>midnightQtime and currentQtime>fajrQtime : #we are in the range ishatime-midnight (after isha before midnight )
                  self.nextTime="Fajr"
-                 seconds=abs(QtCore.QTime.secsTo(fajrQtime,currentQtime))
+                 seconds=(-1)*(QtCore.QTime.secsTo(fajrQtime,currentQtime))
                  self.labelNextPrayer.setText(u"İmsağa kalan süre")
             elif currentQtime>=midnightQtime and currentQtime<=fajrQtime and currentQtime<=ishaQtime: #we are in the range midnight-Fajrtime (after midnight before fajr)
                  self.nextTime="Fajr"
