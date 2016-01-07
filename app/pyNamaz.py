@@ -40,14 +40,12 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.setWindowTitle(self,"pyNamaz")
 
 
-        # QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
-        #                               u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
-        #                               u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
-        #                               u"Dosya formatı gg.aa.yy imsak öğle ikindi akşam yatsı\n"
-        #                               u"şeklindedir. Vakit aralarında birer boşluk bırakınız. Örneğin 2 ocak 2016 ve 3 ocak 2016 için dosyaya şunu yazmalısınız:\n"
-        #                               u"\n\n02.01.16 05:27 06:58 11:54 14:15 16:37 18:02\n03.01.16 05:33 07:03 12:01 14:24 16:46 18:10\n"
-        #                               u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.\n"
-        #                               u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
+        QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
+                                      u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
+                                      u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
+
+                                      u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.\n"
+                                      u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
 
         #prayerTimesObj=prayerTimes()
         #TODO openup prayerTimes to manually set times
