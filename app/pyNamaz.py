@@ -31,7 +31,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     nextTime=""#indicates next prayer time. it can be Asr,Dhuhr,Maghrib,Isha or Fajr
     currentDate=""
     remainingTime="00:00:00"#indicates remaining time for the next prayer time
-    differences=[]
+    differences=[] #no use anymore!
 
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -44,11 +44,10 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
                                       u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
                                       u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
 
-                                      u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.\n"
+                                      u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanın ve gelen tablodaki bilgileri farenizle seçip kopyalayın\n"
                                       u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
 
         #prayerTimesObj=prayerTimes()
-        #TODO openup prayerTimes to manually set times
         #TODO self.pushButtonSetTimesManuelly.clicked.connect(lambda: prayerTimes.getTimesManuelly(prayerTimesObj))
 
 
@@ -73,7 +72,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.actionQtcurve.triggered.connect(lambda: self.setAppearance('Qtcurve'))
         self.actionWindows.triggered.connect(lambda: self.setAppearance('Windows'))
 
-
         self.pushButtonOpenPrayerTimesText.clicked.connect(self.openPrayerTimesText)
 
         #Link Buttons Section
@@ -91,9 +89,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         if sys.platform.startswith("linux"):
             os.system('xdg-open "../data/PrayerTimes.txt"')
         else:
-            os.system('start "../data/PrayerTimes.txt"') #TODO this usage can be problem. file paths should be specified in more efficient way. should be tested in windows systems
-
-
+            os.system('start "../data/PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
     def setCurrentTime(self): #sets and continually updates then prints current time
         #TODO Should warn the user to set his system clock properly
         self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
@@ -101,7 +97,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberCurrentHour.display(self.currentTime.split(':')[0])
         self.lcdNumberCurrentMinute.display(self.currentTime.split(':')[1])
         self.lcdNumberCurrentSecond.display(self.currentTime.split(':')[2])
-    def setPrayerTimes(self): #Parses times file PrayerTimes.txt and sets time variables
+    def setPrayerTimes(self): #Parses times file PrayerTimes.txt and sets time variables #!!!no use anymore!!!
 
         #PrayerTimes.txt format:
             #dd_mm_yy fajr_time sunrise_time dhuhr_time asr_time maghrib_time isha_time
@@ -138,8 +134,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     def setPrayerTimes2(self): #Parses times file PrayerTimes.txt and sets time variables
 
         #PrayerTimes.txt format:
-            #dd_mm_yy fajr_time sunrise_time dhuhr_time asr_time maghrib_time isha_time
-            #17.12.15 06:08 07:09 08:08 09:11 10:12: 11:13
+            #07.01.2016 \t05:33 \t07:03 \t12:03 \t14:27 \t16:50 \t18:13 \t10:32\n
 
         #firstly, Current date and time must be set
         try:
@@ -158,7 +153,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #TODO prayertimes.txt path should be specified with more efficient way
         timesFileObject = open(r"../data/PrayerTimes.txt", 'r')
         for line in timesFileObject:
-            #print repr(line.split('\t')[0])
+
             print str(nextDate)[0:6]+"20"+str(nextDate)[6:]
             if line.split('\t')[0].strip(' ')== str(self.currentDate)[0:6]+"20"+str(self.currentDate)[6:]:
                 timeArray=line.split('\t')
@@ -171,7 +166,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             elif line.split('\t')[0].strip(' ')==str(nextDate)[0:6]+"20"+str(nextDate)[6:]:#TODO I didnt test this
                 self.nextFajrTime=line.split('\t')[1].strip(' ')
                 break
-
     def printPrayerTimes(self): #prints prayer times to the gui
         self.labelCurrentDate.setText(self.currentDate)
         self.lcdNumberFajrHour.display(self.fajrTime.split(':')[0])
@@ -192,7 +186,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
          QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
     def openLink(self,url=''):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
-
     def calculateRemainingTime(self): #no use anymore
         #TODO following type castings should be done with fromstring() function from QTime
         #type casting time variables from string to qtime
@@ -251,7 +244,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
-
     def calculateRemainingTime2(self): #no use anymore
         #TODO following type castings should be done with fromstring() function from QTime
         #type casting time variables from string to qtime
@@ -313,7 +305,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
-
     def calculateRemainingTime3(self):
         #type casting time variables from string to qtime
         fajrQtime=QtCore.QTime.fromString(self.fajrTime+":00","hh:mm:ss")
@@ -371,7 +362,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
-
     def turnSecondsInto(self,seconds):#turns seconds into hour minute and second . returns as string hh:mm:ss
         days, seconds = divmod(seconds, 24*60*60)
         hours, seconds = divmod(seconds, 60*60)
