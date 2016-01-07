@@ -40,14 +40,14 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.setWindowTitle(self,"pyNamaz")
 
 
-        QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
-                                      u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
-                                      u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
-                                      u"Dosya formatı gg.aa.yy imsak öğle ikindi akşam yatsı\n"
-                                      u"şeklindedir. Vakit aralarında birer boşluk bırakınız. Örneğin 2 ocak 2016 ve 3 ocak 2016 için dosyaya şunu yazmalısınız:\n"
-                                      u"\n\n02.01.16 05:27 06:58 11:54 14:15 16:37 18:02\n03.01.16 05:33 07:03 12:01 14:24 16:46 18:10\n"
-                                      u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.\n"
-                                      u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
+        # QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
+        #                               u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
+        #                               u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
+        #                               u"Dosya formatı gg.aa.yy imsak öğle ikindi akşam yatsı\n"
+        #                               u"şeklindedir. Vakit aralarında birer boşluk bırakınız. Örneğin 2 ocak 2016 ve 3 ocak 2016 için dosyaya şunu yazmalısınız:\n"
+        #                               u"\n\n02.01.16 05:27 06:58 11:54 14:15 16:37 18:02\n03.01.16 05:33 07:03 12:01 14:24 16:46 18:10\n"
+        #                               u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanabilirsiniz.\n"
+        #                               u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
 
         #prayerTimesObj=prayerTimes()
         #TODO openup prayerTimes to manually set times
@@ -60,7 +60,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         timer.timeout.connect(self.calculateRemainingTime3)
         timer.start(1000)
 
-        self.setPrayerTimes() #Parsing times file PrayerTimes.txt and setting time variables
+        self.setPrayerTimes2() #Parsing times file PrayerTimes.txt and setting time variables
         self.printPrayerTimes() #printing prayer times to the gui
 
         #Menu Section
@@ -127,6 +127,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         timesFileObject = open(r"../data/PrayerTimes.txt", 'r')
         for line in timesFileObject:
             if line.split(' ')[0]==self.currentDate:
+
                 self.fajrTime=line.split(' ')[1]
                 self.sunriseTime=line.split(' ')[2]
                 self.dhuhrTime=line.split(' ')[3]
@@ -136,6 +137,43 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             elif line.split(' ')[0]==nextDate:
                 self.nextFajrTime=line.split(" ")[1]
                 break
+    def setPrayerTimes2(self): #Parses times file PrayerTimes.txt and sets time variables
+
+        #PrayerTimes.txt format:
+            #dd_mm_yy fajr_time sunrise_time dhuhr_time asr_time maghrib_time isha_time
+            #17.12.15 06:08 07:09 08:08 09:11 10:12: 11:13
+
+        #firstly, Current date and time must be set
+        try:
+            self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
+            self.currentDate = QtCore.QDate().currentDate().toString("dd.MM.yy")
+            #print self.currentDate + " "+ self.currentTime
+            # pass
+        except:
+            print "current time and date can't be obtained from operating system" #should be gui warning
+
+        currentDate= QtCore.QDate.fromString(self.currentDate,"dd.MM.yy")
+        nextDate=currentDate.addDays(1)
+        nextDate= nextDate.toString("dd.MM.yy")
+        #Finding Current date's prayer times from the file and assigning
+
+        #TODO prayertimes.txt path should be specified with more efficient way
+        timesFileObject = open(r"../data/PrayerTimes.txt", 'r')
+        for line in timesFileObject:
+            #print repr(line.split('\t')[0])
+            print str(nextDate)[0:6]+"20"+str(nextDate)[6:]
+            if line.split('\t')[0].strip(' ')== str(self.currentDate)[0:6]+"20"+str(self.currentDate)[6:]:
+                timeArray=line.split('\t')
+                self.fajrTime=timeArray[1].strip(' ')
+                self.sunriseTime=timeArray[2].strip(' ')
+                self.dhuhrTime=timeArray[3].strip(' ')
+                self.asrTime=timeArray[4].strip(' ')
+                self.maghribTime=timeArray[5].strip(' ')
+                self.ishaTime=timeArray[6].strip(' ')
+            elif line.split('\t')[0].strip(' ')==str(nextDate)[0:6]+"20"+str(nextDate)[6:]:#TODO I didnt test this
+                self.nextFajrTime=line.split('\t')[1].strip(' ')
+                break
+
     def printPrayerTimes(self): #prints prayer times to the gui
         self.labelCurrentDate.setText(self.currentDate)
         self.lcdNumberFajrHour.display(self.fajrTime.split(':')[0])
