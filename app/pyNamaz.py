@@ -17,7 +17,6 @@ except:
 
 from ui_pynamaz import Ui_MainWindow
 
-# uygulama = QtGui.QApplication(sys.argv)
 app = QtGui.QApplication(sys.argv)
 
 class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
@@ -47,7 +46,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #Continually updating time
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.setCurrentTime)
-        timer.timeout.connect(self.calculateRemainingTime)
+        timer.timeout.connect(self.calculateRemainingTime3)
         timer.start(1000)
 
         self.setPrayerTimes() #Parsing times file PrayerTimes.txt and setting time variables
@@ -106,7 +105,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
                 self.dhuhrTime=line.split(' ')[3]
                 self.asrTime=line.split(' ')[4]
                 self.maghribTime=line.split(' ')[5]
-                self.ishaTime=line.split(' ')[6]
+                self.ishaTime=(line.split(' ')[6]).strip('\n') #stripping enter en of it
             elif line.split(' ')[0]==nextDate:
                 self.nextFajrTime=line.split(" ")[1]
                 break
@@ -131,10 +130,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     def openLink(self,url=''):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
 
-    def calculateRemainingTime(self):
-        #type casting time variables from string to qtime
+    def calculateRemainingTime(self): #no use anymore
         #TODO following type castings should be done with fromstring() function from QTime
-
+        #type casting time variables from string to qtime
         fajrQtime=QtCore.QTime.fromString(self.fajrTime,"hh:mm")
         currentQtime=QtCore.QTime.fromString(self.currentTime,"hh:mm:ss")
         asrQtime=QtCore.QTime.fromString(self.asrTime,"hh:mm")
@@ -143,17 +141,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         maghribQtime=QtCore.QTime.fromString(self.maghribTime,"hh:mm")
         ishaQtime=QtCore.QTime.fromString(self.ishaTime,"hh:mm")
         nextFajrQtime=QtCore.QTime.fromString(self.nextFajrTime,"hh:mm")
-        # currentQtime=QtCore.QTime(int(self.currentTime.split(":")[0]),int(self.currentTime.split(":")[1]),int(self.currentTime.split(":")[2]))
-        # fajrQtime=QtCore.QTime(int(self.fajrTime.split(":")[0]),int(self.fajrTime.split(":")[1]),0)
-        # asrQtime=QtCore.QTime(int(self.asrTime.split(":")[0]),int(self.asrTime.split(":")[1]),0)
-        # dhuhrQtime=QtCore.QTime(int(self.dhuhrTime.split(":")[0]),int(self.dhuhrTime.split(":")[1]),0)
-        # sunriseQtime=QtCore.QTime(int(self.sunriseTime.split(":")[0]),int(self.sunriseTime.split(":")[1]),0)
-        # maghribQtime=QtCore.QTime(int(self.maghribTime.split(":")[0]),int(self.maghribTime.split(":")[1]),0)
-        # ishaQtime=QtCore.QTime(int(self.ishaTime.split(":")[0]),int(self.ishaTime.split(":")[1]),0)
-        # nextFajrQtime=QtCore.QTime(int(self.nextFajrTime.split(":")[0]),int(self.nextFajrTime.split(":")[1]),0)
 
-
-        #to find out the time interval for the next time, we should find the minimum of negative differrences among times and current time
+        #to find out the time interval for the next time, we should find the minimum of negative differrences among prayer times and current time
         #QtCore.QTime.secsTo(param1,param2) returns the two time object's difference in second
         differences=[QtCore.QTime.secsTo(fajrQtime,currentQtime),
                      QtCore.QTime.secsTo(sunriseQtime,currentQtime),
@@ -161,10 +150,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
                      QtCore.QTime.secsTo(asrQtime,currentQtime),
                      QtCore.QTime.secsTo(maghribQtime,currentQtime),
                      QtCore.QTime.secsTo(ishaQtime,currentQtime)]
-        #print differences
-
-        #print self.turnSecondsInto(differences[4])
-
+        print differences
+        print self.currentTime
         for index in range(0,6):
             if differences[index] < 0: #first negative value is the next prayer time
                 seconds=differences[index]
@@ -201,6 +188,121 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
+
+
+    def calculateRemainingTime2(self): #no use anymore
+        #TODO following type castings should be done with fromstring() function from QTime
+        #type casting time variables from string to qtime
+        fajrQtime=QtCore.QTime.fromString(self.fajrTime,"hh:mm")
+        currentQtime=QtCore.QTime.fromString(self.currentTime,"hh:mm:ss")
+        asrQtime=QtCore.QTime.fromString(self.asrTime,"hh:mm")
+        dhuhrQtime=QtCore.QTime.fromString(self.dhuhrTime,"hh:mm")
+        sunriseQtime=QtCore.QTime.fromString(self.sunriseTime,"hh:mm")
+        maghribQtime=QtCore.QTime.fromString(self.maghribTime,"hh:mm")
+        ishaQtime=QtCore.QTime.fromString(self.ishaTime,"hh:mm")
+        nextFajrQtime=QtCore.QTime.fromString(self.nextFajrTime,"hh:mm")
+
+        midnightQtime=QtCore.QTime.fromString("24:00:00","hh:mm:ss")
+
+        #to find out the time interval for the next time, we should find the minimum of negative differrences among prayer times and current time
+        #QtCore.QTime.secsTo(param1,param2) returns the two time object's difference in second
+        differences=[QtCore.QTime.secsTo(currentQtime ,midnightQtime ),
+                     QtCore.QTime.secsTo(fajrQtime    ,midnightQtime ),
+                     QtCore.QTime.secsTo(sunriseQtime ,midnightQtime ),
+                     QtCore.QTime.secsTo(dhuhrQtime   ,midnightQtime ),
+                     QtCore.QTime.secsTo(asrQtime     ,midnightQtime ),
+                     QtCore.QTime.secsTo(maghribQtime ,midnightQtime ),
+                     QtCore.QTime.secsTo(ishaQtime    ,midnightQtime )]
+
+
+        if differences[1]>differences[0]>differences[6]:#time is bigger than fajr and smaller than Isha time (after fajr before İsha)
+            if differences[1]>=differences[0]>differences[2]:
+                self.nextTime="Sunrise"
+                self.labelNextPrayer.setText(u"Güneşe kalan süre")
+            elif differences[2]>=differences[0]>differences[3]:
+                self.nextTime="Dhuhr"
+                self.labelNextPrayer.setText(u"Öğleye kalan süre")
+            elif differences[3]>=differences[0]>differences[4]:
+                self.nextTime="Asr"
+                self.labelNextPrayer.setText(u"İkindiye kalan süre")
+            elif differences[4]>=differences[0]>differences[5]:
+                self.nextTime="Maghrib"
+                self.labelNextPrayer.setText(u"Akşama kalan süre")
+            elif differences[5]>=differences[0]>differences[6]:
+                self.nextTime="Isha"
+                self.labelNextPrayer.setText(u"Yatsıya kalan süre")
+        else:
+            # if differences[0]>=0 and differences[0]>=differences[6]: #we are in the range ishatime-midnight (after isha before midnight )
+            #     self.nextTime="Fajr"
+            #     self.labelNextPrayer.setText(u"İmsağa kalan süre")
+            # elif differences[0]<0 and differences[0]<=differences[1]: #we are in the range midnight-Fajrtime (after midnight before fajr)
+            #     self.nextTime="Fajr"
+            #     self.labelNextPrayer.setText(u"imsağa kalan süre")
+            # else:#!!!trivial!!!
+            self.nextTime="Fajr"
+            self.labelNextPrayer.setText(u"imsağa kalan süre")
+        print(self.nextTime)
+        for item in differences:
+            print self.turnSecondsInto(item)
+
+        #print(currentQtime)
+        #self.remainingTime=str(self.turnSecondsInto((-1)*seconds)) #turn remaining seconds to hh:mm:ss
+        #printing time into remaining time section
+        self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
+        self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
+        self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
+
+
+
+
+    def calculateRemainingTime3(self):
+        #type casting time variables from string to qtime
+        fajrQtime=QtCore.QTime.fromString(self.fajrTime+":00","hh:mm:ss")
+        currentQtime=QtCore.QTime.fromString(self.currentTime,"hh:mm:ss")
+        asrQtime=QtCore.QTime.fromString(self.asrTime+":00","hh:mm:ss")
+        dhuhrQtime=QtCore.QTime.fromString(self.dhuhrTime+":00","hh:mm:ss")
+        sunriseQtime=QtCore.QTime.fromString(self.sunriseTime+":00","hh:mm:ss")
+        maghribQtime=QtCore.QTime.fromString(self.maghribTime+":00","hh:mm:ss")
+        ishaQtime=QtCore.QTime.fromString(self.ishaTime+":00","hh:mm:ss")
+        nextFajrQtime=QtCore.QTime.fromString(self.nextFajrTime+":00","hh:mm:ss")
+        midnightQtime=QtCore.QTime.fromString("00:00:00","hh:mm:ss")
+
+        if fajrQtime<=currentQtime<=ishaQtime:#time is bigger than fajr and smaller than Isha time (after fajr before İsha)
+            if fajrQtime<currentQtime<=sunriseQtime:
+                self.nextTime="Sunrise"
+                self.labelNextPrayer.setText(u"Güneşe kalan süre")
+            elif sunriseQtime<currentQtime<=dhuhrQtime:
+                self.nextTime="Dhuhr"
+                self.labelNextPrayer.setText(u"Öğleye kalan süre")
+            elif dhuhrQtime<currentQtime<=asrQtime:
+                self.nextTime="Asr"
+                self.labelNextPrayer.setText(u"İkindiye kalan süre")
+            elif asrQtime<currentQtime<=maghribQtime:
+                self.nextTime="Maghrib"
+                self.labelNextPrayer.setText(u"Akşama kalan süre")
+            elif maghribQtime<currentQtime<=ishaQtime:
+                self.nextTime="Isha"
+                self.labelNextPrayer.setText(u"Yatsıya kalan süre")
+        else: #after isha before next fajr
+            if  currentQtime>ishaQtime and currentQtime>midnightQtime and currentQtime>fajrQtime : #we are in the range ishatime-midnight (after isha before midnight )
+                 self.nextTime="Fajr"
+                 self.labelNextPrayer.setText(u"İmsağa kalan süre")
+            elif currentQtime>midnightQtime and currentQtime<fajrQtime and currentQtime<ishaQtime: #we are in the range midnight-Fajrtime (after midnight before fajr)
+                 self.nextTime="Fajr"
+                 self.labelNextPrayer.setText(u"İmsağa kalan süre")
+
+
+
+        #print(currentQtime)
+        #self.remainingTime=str(self.turnSecondsInto((-1)*seconds)) #turn remaining seconds to hh:mm:ss
+        #printing time into remaining time section
+        self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
+        self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
+        self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
+
+
+
+
 
 
     def turnSecondsInto(self,seconds):#turns seconds into hour minute and second . returns as string hh:mm:ss
