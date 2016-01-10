@@ -82,7 +82,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         os.chdir("../")#for this usage pynamaz.py should be one level deep from root directory.
         self.appRootDirectory=os.getcwd()
         #print self.appRootDirectory
-
     def printUseWarning(self):
         QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
                                       u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
@@ -105,7 +104,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberCurrentHour.display(self.currentTime.split(':')[0])
         self.lcdNumberCurrentMinute.display(self.currentTime.split(':')[1])
         self.lcdNumberCurrentSecond.display(self.currentTime.split(':')[2])
-
     def setPrayerTimes2(self): #Parses times file PrayerTimes.txt and sets time variables
 
         #PrayerTimes.txt format:
@@ -161,7 +159,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
          QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
     def openLink(self,url=''):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
-
     def calculateRemainingTime3(self):
         #type casting time variables from string to qtime
         fajrQtime=QtCore.QTime.fromString(self.fajrTime+":00","hh:mm:ss")
@@ -224,6 +221,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         hours, seconds = divmod(seconds, 60*60)
         minutes, seconds = divmod(seconds, 60)
         return str(hours)+":"+str(minutes)+":"+str(seconds)
+
 
 
 if __name__ == "__main__":
