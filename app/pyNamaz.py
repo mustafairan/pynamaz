@@ -33,7 +33,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     currentDate=""
     remainingTime="00:00:00"#indicates remaining time for the next prayer time
     appRootDirectory=""#indicates where the main (pyNamaz.py) class in (app directory)
-
+    warningTime="00:30:00" #indicates the warning time before next time becomes
+    isShown=False
+    lastWarningWasFor=""
 
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -49,7 +51,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #self.printUseWarning() #prints initial warning
         self.setRootDirectory() #sets approotdirectory variable to able to know where we in
         self.showTrayIcon() #shows a tray icon
-
+        self.centerMainWindow()
 
         #Continually updating time and remaining time
         timer = QtCore.QTimer(self)
@@ -116,6 +118,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberCurrentHour.display(self.currentTime.split(':')[0])
         self.lcdNumberCurrentMinute.display(self.currentTime.split(':')[1])
         self.lcdNumberCurrentSecond.display(self.currentTime.split(':')[2])
+
     def setPrayerTimes2(self): #Parses times file PrayerTimes.txt and sets time variables
 
         #PrayerTimes.txt format:
@@ -139,7 +142,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         timesFileObject = open(self.appRootDirectory+r"/data/PrayerTimes.txt", 'r')
         for line in timesFileObject:
 
-            print str(nextDate)[0:6]+"20"+str(nextDate)[6:]
+            #print str(nextDate)[0:6]+"20"+str(nextDate)[6:]
             if line.split('\t')[0].strip(' ')== str(self.currentDate)[0:6]+"20"+str(self.currentDate)[6:]:
                 timeArray=line.split('\t')
                 self.fajrTime=timeArray[1].strip(' ')
@@ -228,11 +231,49 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
+        self.remainingTimeWarning(self.nextTime)
+    def remainingTimeWarning(self,forTime):
+
+        warningQTime = self.convertToQtime(self.warningTime)
+        remainingQtime=self.convertToQtime(self.remainingTime)
+
+        print str(remainingQtime<=warningQTime)
+        print(warningQTime)
+        print(remainingQtime)
+        if remainingQtime<=warningQTime and self.lastWarningWasFor!=forTime:
+            self.printWarn()
+            self.isShown=True
+            self.lastWarningWasFor=forTime
+
+
+
+    def printWarn(self):
+        #TODO warning should be a system notification
+        QtGui.QMessageBox.information(None, u"Vakit uyarısı",
+                                      u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
     def turnSecondsInto(self,seconds):#turns seconds into hour minute and second . returns as string hh:mm:ss
         days, seconds = divmod(seconds, 24*60*60)
         hours, seconds = divmod(seconds, 60*60)
         minutes, seconds = divmod(seconds, 60)
-        return str(hours)+":"+str(minutes)+":"+str(seconds)
+
+        #return format must be hh:mm:ss
+        #for example 0:11:59 cause problem. so it must be 00:11:59
+        if hours<10:
+            hours=str(hours)
+            hours="0"+hours
+        else:
+            hours=str(hours)
+        if seconds<10:
+            seconds=str(seconds)
+            seconds="0"+seconds
+        else:
+            seconds=str(seconds)
+        if minutes<10:
+            minutes=str(minutes)
+            minutes="0"+minutes
+        else:
+            minutes=str(minutes)
+        return hours+":"+minutes+":"+seconds
     def convertToQtime(self,timeString):
         """
         converts a given string to Qtime
@@ -241,6 +282,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         """
         timeQ=QtCore.QTime.fromString(timeString,"hh:mm:ss")
         return timeQ
+    def centerMainWindow(self):
+        self.move((QtGui.QDesktopWidget().screenGeometry().width() - self.geometry().width()) / 2, \
+                  (QtGui.QDesktopWidget().screenGeometry().height() - self.geometry().height()) / 2)
 
 
 
