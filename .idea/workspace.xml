@@ -17,7 +17,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/pynamaz-smartgit-masterbranch-sunumversiyon$pyNamaz.coverage" NAME="pyNamaz Coverage Results" MODIFIED="1452031499324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/pynamaz$pyNamaz.coverage" NAME="pyNamaz Coverage Results" MODIFIED="1452439593111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
+    <SUITE FILE_PATH="coverage/pynamaz$pyNamaz.coverage" NAME="pyNamaz Coverage Results" MODIFIED="1452439861835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -31,23 +31,24 @@
       <file leaf-file-name="pyNamaz.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.50899744">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.30591258">
+              <caret line="82" column="27" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
               <folding>
-                <element signature="e#3286#3452#0" expanded="false" />
-                <element signature="e#3492#4133#0" expanded="false" />
-                <element signature="e#4177#4594#0" expanded="false" />
-                <element signature="e#4688#5127#0" expanded="false" />
-                <element signature="e#5227#6941#0" expanded="false" />
-                <element signature="e#7014#7927#0" expanded="false" />
-                <element signature="e#7984#8142#0" expanded="false" />
-                <element signature="e#8182#8232#0" expanded="false" />
-                <element signature="e#8280#11652#0" expanded="false" />
-                <element signature="e#11771#11967#0" expanded="false" />
-                <marker date="1452439593104" expanded="false" signature="1514:1740" placeholder="..." />
-                <marker date="1452439593104" expanded="false" signature="1910:2708" placeholder="..." />
-                <marker date="1452439593104" expanded="false" signature="2710:2794" placeholder="..." />
-                <marker date="1452439593104" expanded="false" signature="2802:3245" placeholder="..." />
+                <element signature="e#3330#3723#0" expanded="false" />
+                <element signature="e#3764#3930#0" expanded="false" />
+                <element signature="e#3970#4611#0" expanded="false" />
+                <element signature="e#4655#5072#0" expanded="false" />
+                <element signature="e#5166#5605#0" expanded="false" />
+                <element signature="e#5705#7419#0" expanded="false" />
+                <element signature="e#7492#8405#0" expanded="false" />
+                <element signature="e#8462#8620#0" expanded="false" />
+                <element signature="e#8660#8710#0" expanded="false" />
+                <element signature="e#8758#12130#0" expanded="false" />
+                <element signature="e#12249#12445#0" expanded="false" />
+                <marker date="1452440015696" expanded="false" signature="1561:1787" placeholder="..." />
+                <marker date="1452440015696" expanded="false" signature="1957:2755" placeholder="..." />
+                <marker date="1452440015696" expanded="false" signature="2757:2841" placeholder="..." />
+                <marker date="1452440015696" expanded="false" signature="2849:3292" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -387,20 +388,21 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3286#3452#0" expanded="false" />
-            <element signature="e#3492#4133#0" expanded="false" />
-            <element signature="e#4177#4594#0" expanded="false" />
-            <element signature="e#4688#5127#0" expanded="false" />
-            <element signature="e#5227#6941#0" expanded="false" />
-            <element signature="e#7014#7927#0" expanded="false" />
-            <element signature="e#7984#8142#0" expanded="false" />
-            <element signature="e#8182#8232#0" expanded="false" />
-            <element signature="e#8280#11652#0" expanded="false" />
-            <element signature="e#11771#11967#0" expanded="false" />
-            <marker date="1452439593104" expanded="false" signature="1514:1740" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="1910:2708" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="2710:2794" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="2802:3245" placeholder="..." />
+            <element signature="e#3330#3723#0" expanded="false" />
+            <element signature="e#3764#3930#0" expanded="false" />
+            <element signature="e#3970#4611#0" expanded="false" />
+            <element signature="e#4655#5072#0" expanded="false" />
+            <element signature="e#5166#5605#0" expanded="false" />
+            <element signature="e#5705#7419#0" expanded="false" />
+            <element signature="e#7492#8405#0" expanded="false" />
+            <element signature="e#8462#8620#0" expanded="false" />
+            <element signature="e#8660#8710#0" expanded="false" />
+            <element signature="e#8758#12130#0" expanded="false" />
+            <element signature="e#12249#12445#0" expanded="false" />
+            <marker date="1452440015696" expanded="false" signature="1561:1787" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="1957:2755" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="2757:2841" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="2849:3292" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -410,43 +412,45 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#3286#3452#0" expanded="false" />
-            <element signature="e#3492#4133#0" expanded="false" />
-            <element signature="e#4177#4594#0" expanded="false" />
-            <element signature="e#4688#5127#0" expanded="false" />
-            <element signature="e#5227#6941#0" expanded="false" />
-            <element signature="e#7014#7927#0" expanded="false" />
-            <element signature="e#7984#8142#0" expanded="false" />
-            <element signature="e#8182#8232#0" expanded="false" />
-            <element signature="e#8280#11652#0" expanded="false" />
-            <element signature="e#11771#11967#0" expanded="false" />
-            <marker date="1452439593104" expanded="false" signature="1514:1740" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="1910:2708" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="2710:2794" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="2802:3245" placeholder="..." />
+            <element signature="e#3330#3723#0" expanded="false" />
+            <element signature="e#3764#3930#0" expanded="false" />
+            <element signature="e#3970#4611#0" expanded="false" />
+            <element signature="e#4655#5072#0" expanded="false" />
+            <element signature="e#5166#5605#0" expanded="false" />
+            <element signature="e#5705#7419#0" expanded="false" />
+            <element signature="e#7492#8405#0" expanded="false" />
+            <element signature="e#8462#8620#0" expanded="false" />
+            <element signature="e#8660#8710#0" expanded="false" />
+            <element signature="e#8758#12130#0" expanded="false" />
+            <element signature="e#12249#12445#0" expanded="false" />
+            <marker date="1452440015696" expanded="false" signature="1561:1787" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="1957:2755" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="2757:2841" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="2849:3292" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.50899744">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.30591258">
+          <caret line="82" column="27" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
           <folding>
-            <element signature="e#3286#3452#0" expanded="false" />
-            <element signature="e#3492#4133#0" expanded="false" />
-            <element signature="e#4177#4594#0" expanded="false" />
-            <element signature="e#4688#5127#0" expanded="false" />
-            <element signature="e#5227#6941#0" expanded="false" />
-            <element signature="e#7014#7927#0" expanded="false" />
-            <element signature="e#7984#8142#0" expanded="false" />
-            <element signature="e#8182#8232#0" expanded="false" />
-            <element signature="e#8280#11652#0" expanded="false" />
-            <element signature="e#11771#11967#0" expanded="false" />
-            <marker date="1452439593104" expanded="false" signature="1514:1740" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="1910:2708" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="2710:2794" placeholder="..." />
-            <marker date="1452439593104" expanded="false" signature="2802:3245" placeholder="..." />
+            <element signature="e#3330#3723#0" expanded="false" />
+            <element signature="e#3764#3930#0" expanded="false" />
+            <element signature="e#3970#4611#0" expanded="false" />
+            <element signature="e#4655#5072#0" expanded="false" />
+            <element signature="e#5166#5605#0" expanded="false" />
+            <element signature="e#5705#7419#0" expanded="false" />
+            <element signature="e#7492#8405#0" expanded="false" />
+            <element signature="e#8462#8620#0" expanded="false" />
+            <element signature="e#8660#8710#0" expanded="false" />
+            <element signature="e#8758#12130#0" expanded="false" />
+            <element signature="e#12249#12445#0" expanded="false" />
+            <marker date="1452440015696" expanded="false" signature="1561:1787" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="1957:2755" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="2757:2841" placeholder="..." />
+            <marker date="1452440015696" expanded="false" signature="2849:3292" placeholder="..." />
           </folding>
         </state>
       </provider>

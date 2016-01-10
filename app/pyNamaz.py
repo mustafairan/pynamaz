@@ -48,6 +48,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         #self.printUseWarning() #prints initial warning
         self.setRootDirectory() #sets approotdirectory variable to able to know where we in
+        self.showTrayIcon() #shows a tray icon
 
 
         #Continually updating time and remaining time
@@ -78,6 +79,17 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
         self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
         self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))
+
+    def showTrayIcon(self):
+        self.trayIcon = QtGui.QSystemTrayIcon(self)
+        # menu = QtGui.QMenu(self)
+        # menu.addAction(self.actionCikis)
+        # self.trayIcon.setContextMenu(menu)
+        self.trayIcon.setIcon(QtGui.QIcon(self.appRootDirectory+"/data/mosque.png"))#TODO path should be specified correctly
+        if self.trayIcon.isVisible():
+            pass
+        else:
+            self.trayIcon.show()
     def setRootDirectory(self):
         os.chdir("../")#for this usage pynamaz.py should be one level deep from root directory.
         self.appRootDirectory=os.getcwd()
