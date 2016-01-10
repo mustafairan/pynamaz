@@ -245,9 +245,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             self.lastWarningWasFor=forTime
     def printWarn(self):
 
-        # QtGui.QMessageBox.information(None, u"Vakit uyarısı",
-        #                               u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
-        #
+        QtGui.QMessageBox.information(None, u"Vakit uyarısı",
+                                      u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
+
         dict = {'Fajr': u'İmsak','Sunrise': u'Güneş','Dhuhr': u'Öğle', 'Asr': u'İkindi', 'Isha': u'Yatsı','Maghrib': u'Akşam'}#Turkish meanings of prayer times
         self.trayIcon.showMessage(u"Bilgi",u"Sonraki vakit : "+dict[self.nextTime]+u"\n"+u"Kalan süre: "+self.remainingTime,
                                   self.trayIcon.Information,6000)
