@@ -48,6 +48,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #prayerTimesObj=prayerTimes()
         #TODO self.pushButtonSetTimesManuelly.clicked.connect(lambda: prayerTimes.getTimesManuelly(prayerTimesObj))
 
+        self.trayIcon = QtGui.QSystemTrayIcon(self)
+
         #self.printUseWarning() #prints initial warning
         self.setRootDirectory() #sets approotdirectory variable to able to know where we in
         self.showTrayIcon() #shows a tray icon
@@ -83,7 +85,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))
 
     def showTrayIcon(self):
-        self.trayIcon = QtGui.QSystemTrayIcon(self)
         # menu = QtGui.QMenu(self)
         # menu.addAction(self.actionCikis)
         # self.trayIcon.setContextMenu(menu)
@@ -232,25 +233,24 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
         self.remainingTimeWarning(self.nextTime)
+
     def remainingTimeWarning(self,forTime):
 
         warningQTime = self.convertToQtime(self.warningTime)
         remainingQtime=self.convertToQtime(self.remainingTime)
 
-        print str(remainingQtime<=warningQTime)
-        print(warningQTime)
-        print(remainingQtime)
         if remainingQtime<=warningQTime and self.lastWarningWasFor!=forTime:
             self.printWarn()
             self.isShown=True
             self.lastWarningWasFor=forTime
-
-
-
     def printWarn(self):
-        #TODO warning should be a system notification
-        QtGui.QMessageBox.information(None, u"Vakit uyarısı",
-                                      u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
+
+        # QtGui.QMessageBox.information(None, u"Vakit uyarısı",
+        #                               u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
+        #
+        dict = {'Fajr': u'İmsak','Sunrise': u'Güneş','Dhuhr': u'Öğle', 'Asr': u'İkindi', 'Isha': u'Yatsı','Maghrib': u'Akşam'}#Turkish meanings of prayer times
+        self.trayIcon.showMessage(u"Bilgi",u"Sonraki vakit : "+dict[self.nextTime]+u"\n"+u"Kalan süre: "+self.remainingTime,
+                                  self.trayIcon.Information,6000)
     def turnSecondsInto(self,seconds):#turns seconds into hour minute and second . returns as string hh:mm:ss
         days, seconds = divmod(seconds, 24*60*60)
         hours, seconds = divmod(seconds, 60*60)
@@ -285,7 +285,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     def centerMainWindow(self):
         self.move((QtGui.QDesktopWidget().screenGeometry().width() - self.geometry().width()) / 2, \
                   (QtGui.QDesktopWidget().screenGeometry().height() - self.geometry().height()) / 2)
-
 
 
 if __name__ == "__main__":
