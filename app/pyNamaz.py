@@ -173,15 +173,15 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
     def calculateRemainingTime3(self):
         #type casting time variables from string to qtime
-        fajrQtime=QtCore.QTime.fromString(self.fajrTime+":00","hh:mm:ss")
-        currentQtime=QtCore.QTime.fromString(self.currentTime,"hh:mm:ss")
-        asrQtime=QtCore.QTime.fromString(self.asrTime+":00","hh:mm:ss")
-        dhuhrQtime=QtCore.QTime.fromString(self.dhuhrTime+":00","hh:mm:ss")
-        sunriseQtime=QtCore.QTime.fromString(self.sunriseTime+":00","hh:mm:ss")
-        maghribQtime=QtCore.QTime.fromString(self.maghribTime+":00","hh:mm:ss")
-        ishaQtime=QtCore.QTime.fromString(self.ishaTime+":00","hh:mm:ss")
-        nextFajrQtime=QtCore.QTime.fromString(self.nextFajrTime+":00","hh:mm:ss")
-        midnightQtime=QtCore.QTime.fromString("00:00:00","hh:mm:ss")
+        fajrQtime=self.convertToQtime(self.fajrTime+":00")
+        currentQtime=self.convertToQtime(self.currentTime)
+        asrQtime=self.convertToQtime(self.asrTime+":00")
+        dhuhrQtime=self.convertToQtime(self.dhuhrTime+":00")
+        sunriseQtime=self.convertToQtime(self.sunriseTime+":00")
+        maghribQtime=self.convertToQtime(self.maghribTime+":00")
+        ishaQtime=self.convertToQtime(self.ishaTime+":00")
+        nextFajrQtime=self.convertToQtime(self.nextFajrTime+":00")
+        midnightQtime=self.convertToQtime("00:00:00")
 
 
         # if   currentQtime==QtCore.QTime.fromString("23:59:59","hh:mm:ss"): #TODO midnight (00:00) must trick updating time ,date and prayer timess
@@ -233,6 +233,14 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         hours, seconds = divmod(seconds, 60*60)
         minutes, seconds = divmod(seconds, 60)
         return str(hours)+":"+str(minutes)+":"+str(seconds)
+    def convertToQtime(self,timeString):
+        """
+        converts a given string to Qtime
+        :param timeString: hh:mm:ss
+        :return: timeQ  Qtime
+        """
+        timeQ=QtCore.QTime.fromString(timeString,"hh:mm:ss")
+        return timeQ
 
 
 
