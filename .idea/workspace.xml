@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3e1a2b7-e391-4c63-bd10-aa7ed0670c8a" name="Default" comment="desktop entry fixed">
+    <list default="true" id="a3e1a2b7-e391-4c63-bd10-aa7ed0670c8a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pyNamaz.py" afterPath="$PROJECT_DIR$/app/pyNamaz.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pynamaz.desktop" afterPath="$PROJECT_DIR$/pynamaz.desktop" />
     </list>
     <ignored path="pynamaz-smartgit-masterbranch-sunumversiyon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +40,8 @@
       <file leaf-file-name="pyNamaz.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25">
-              <caret line="177" column="58" selection-start-line="177" selection-start-column="58" selection-end-line="177" selection-end-column="58" />
+            <state vertical-scroll-proportion="-0.05">
+              <caret line="177" column="58" selection-start-line="0" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/pynamaz.desktop">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="65" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="65" />
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -85,8 +85,8 @@
         <option value="$PROJECT_DIR$/app/threadtest.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/app/test.py" />
-        <option value="$PROJECT_DIR$/pynamaz.desktop" />
         <option value="$PROJECT_DIR$/app/pyNamaz.py" />
+        <option value="$PROJECT_DIR$/pynamaz.desktop" />
       </list>
     </option>
   </component>
@@ -473,7 +473,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452404718196</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="desktop entry fixed">
+      <created>1452404871048</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1452404871048</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -663,15 +669,15 @@
     <entry file="file://$PROJECT_DIR$/pynamaz.desktop">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="65" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="65" />
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25">
-          <caret line="177" column="58" selection-start-line="177" selection-start-column="58" selection-end-line="177" selection-end-column="58" />
+        <state vertical-scroll-proportion="-0.05">
+          <caret line="177" column="58" selection-start-line="0" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
           <folding />
         </state>
       </provider>
