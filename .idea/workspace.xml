@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3e1a2b7-e391-4c63-bd10-aa7ed0670c8a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pyNamaz.py" afterPath="$PROJECT_DIR$/app/pyNamaz.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pynamaz.desktop" afterPath="$PROJECT_DIR$/pynamaz.desktop" />
     </list>
     <ignored path="pynamaz-smartgit-masterbranch-sunumversiyon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,11 +37,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pyNamaz.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pyNamaz.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.05">
+            <state vertical-scroll-proportion="-0.64285713">
               <caret line="1" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pynamaz.desktop" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pynamaz.desktop">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2783505">
+              <caret line="6" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -76,6 +86,7 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/app/test.py" />
         <option value="$PROJECT_DIR$/app/pyNamaz.py" />
+        <option value="$PROJECT_DIR$/pynamaz.desktop" />
       </list>
     </option>
   </component>
@@ -444,7 +455,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452404482025</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="comments edited">
+      <created>1452404535170</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1452404535170</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -632,8 +649,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.05">
+        <state vertical-scroll-proportion="-0.64285713">
           <caret line="1" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pynamaz.desktop">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2783505">
+          <caret line="6" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
