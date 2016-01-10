@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3e1a2b7-e391-4c63-bd10-aa7ed0670c8a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pyNamaz.py" afterPath="$PROJECT_DIR$/app/pyNamaz.py" />
     </list>
     <ignored path="pynamaz-smartgit-masterbranch-sunumversiyon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,8 +40,8 @@
       <file leaf-file-name="pyNamaz.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.6055555">
-              <caret line="88" column="25" selection-start-line="88" selection-start-column="25" selection-end-line="88" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.05">
+              <caret line="1" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -437,7 +438,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452404442038</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="comments edited">
+      <created>1452404482025</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1452404482025</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -488,7 +495,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial warning uncommented" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial warning uncommented" />
+    <MESSAGE value="comments edited" />
+    <option name="LAST_COMMIT_MESSAGE" value="comments edited" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -624,8 +632,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pyNamaz.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.6055555">
-          <caret line="88" column="25" selection-start-line="88" selection-start-column="25" selection-end-line="88" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.05">
+          <caret line="1" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
           <folding />
         </state>
       </provider>
