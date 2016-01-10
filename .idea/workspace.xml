@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a3e1a2b7-e391-4c63-bd10-aa7ed0670c8a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pyNamaz.py" afterPath="$PROJECT_DIR$/app/pyNamaz.py" />
     </list>
     <ignored path="pynamaz-smartgit-masterbranch-sunumversiyon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -432,7 +431,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452402785076</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="initial warning uncommented">
+      <created>1452404442038</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1452404442038</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
