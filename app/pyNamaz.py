@@ -180,9 +180,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         """
         sets appereance (eg: qtcurve , bespin)
         """
-         if appereance_choice == None:
+        if appereance_choice == None:
             appereance_choice = "Cleanlooks"
-         QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
+        QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
     def openLink(self,url=''):
         """
         opens a given url
