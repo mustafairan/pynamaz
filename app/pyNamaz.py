@@ -50,7 +50,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         self.trayIcon = QtGui.QSystemTrayIcon(self)
 
-        #self.printUseWarning() #prints initial warning
+        self.printUseWarning() #prints initial warning
         self.setRootDirectory() #sets approotdirectory variable to able to know where we in
         self.showTrayIcon() #shows a tray icon
         self.centerMainWindow()
@@ -119,7 +119,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberCurrentHour.display(self.currentTime.split(':')[0])
         self.lcdNumberCurrentMinute.display(self.currentTime.split(':')[1])
         self.lcdNumberCurrentSecond.display(self.currentTime.split(':')[2])
-
     def setPrayerTimes2(self): #Parses times file PrayerTimes.txt and sets time variables
 
         #PrayerTimes.txt format:
@@ -233,7 +232,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
         self.remainingTimeWarning(self.nextTime)
-
     def remainingTimeWarning(self,forTime):
 
         warningQTime = self.convertToQtime(self.warningTime)
@@ -245,8 +243,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             self.lastWarningWasFor=forTime
     def printWarn(self):
 
-        QtGui.QMessageBox.information(None, u"Vakit uyarısı",
-                                      u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
+        # QtGui.QMessageBox.information(None, u"Vakit uyarısı",
+        #                               u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
 
         dict = {'Fajr': u'İmsak','Sunrise': u'Güneş','Dhuhr': u'Öğle', 'Asr': u'İkindi', 'Isha': u'Yatsı','Maghrib': u'Akşam'}#Turkish meanings of prayer times
         self.trayIcon.showMessage(u"Bilgi",u"Sonraki vakit : "+dict[self.nextTime]+u"\n"+u"Kalan süre: "+self.remainingTime,
