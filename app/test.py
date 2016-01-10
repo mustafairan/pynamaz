@@ -28,12 +28,19 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.setWindowTitle(self,"pyNamaz")
 
         self.trayIcon = QtGui.QSystemTrayIcon(self)
-        self.printit()
+        #self.printit()
+        self.drawTime()
 
 
     def printit(self):
         print "printit called"
         self.trayIcon.showMessage("Namaz Vakti","12345",self.trayIcon.Information, 15550)
+
+    def drawTime(self):
+        te=QtGui.QTextEdit("11")
+        te.resize(30, 30)
+        pix=QtGui.QPixmap.grabWidget (te, 0,0,-1,-1)
+        pix.save("test.png")
 
 
 if __name__ == "__main__":

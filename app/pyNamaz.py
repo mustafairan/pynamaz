@@ -51,7 +51,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.trayIcon = QtGui.QSystemTrayIcon(self)
         self.printUseWarning() #prints initial warning
         self.setRootDirectory() #sets approotdirectory variable to able to know where we in
-        self.showTrayIcon() #shows a tray icon
         self.centerMainWindow() #to be sure the main window cented on screen
 
         #Continually updating time and remaining time
@@ -62,6 +61,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         self.setPrayerTimes2() #Parsing times file PrayerTimes.txt and setting time variables
         self.printPrayerTimes() #printing prayer times to the gui
+
 
         #Menu Section
             #Appereance Preferances
@@ -84,11 +84,52 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
         self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))#Times data can be copy from here
 
+
+
+
     def showTrayIcon(self):
         """
         shows a tray icon
         """
-        self.trayIcon.setIcon(QtGui.QIcon(self.appRootDirectory+"/data/mosque.png"))#TODO path should be specified correctly
+        #self.trayIcon.setIcon(QtGui.QIcon(self.appRootDirectory+"/data/mosque.png"))#TODO path should be specified correctly
+        ####################
+        # te=QtGui.QTextEdit(str(int(self.remainingTime.split(":")[0])*60+int(self.remainingTime.split(":")[1])))
+        # te.resize(40, 40)
+        # te.autoFillBackground()
+        # pix=QtGui.QPixmap.grabWidget (te, 0,0,-1,-1)
+        #pix.save("test.png")
+
+
+        te=QtGui.QLCDNumber(3)
+        te.display((int(self.remainingTime.split(":")[0])*60+int(self.remainingTime.split(":")[1])))
+        te.setSegmentStyle(QtGui.QLCDNumber.Flat)
+        te.resize(40, 40)
+
+        pix=QtGui.QPixmap.grabWidget (te, 0,0,-1,-1)
+        pix.save("test.png")
+
+        self.trayIcon.setIcon(QtGui.QIcon(pix))#TODO path should be specified correctly
+
+
+
+
+        ######################
+
+        #############################
+
+        # image=QtGui.QImage( 50, 50, QtGui.QImage.Format_RGB16)
+        # painter=QtGui.QPainter(image)
+        # painter.fillRect(image.rect(),QtCore.Qt.yellow)
+        # text=QtCore.QString
+        #
+        # painter.drawText(image.rect(),QtCore.Qt.AlignCenter | QtCore.Qt.AlignVCenter, "234")
+        #
+        # print id(image)
+        # image.save("sqqsqsq.png")
+        # self.trayIcon.setIcon(QtGui.QIcon("sqqsqsq.png"))#TODO path should be specified correctly
+        # painter.end()
+        ######################
+
         if self.trayIcon.isVisible():
             pass
         else:
@@ -249,6 +290,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
         self.remainingTimeWarning(self.nextTime)
+        self.showTrayIcon() #shows a tray icon
+
+
     def remainingTimeWarning(self,forTime):
         """
         Decides if warning is necessary or not
@@ -273,6 +317,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         dict = {'Fajr': u'İmsak','Sunrise': u'Güneş','Dhuhr': u'Öğle', 'Asr': u'İkindi', 'Isha': u'Yatsı','Maghrib': u'Akşam'}#Turkish meanings of prayer times
         self.trayIcon.showMessage(u"Bilgi",u"Sonraki vakit : "+dict[self.nextTime]+u"\n"+u"Kalan süre: "+self.remainingTime,
                                   self.trayIcon.Information,6000)
+
+
+
     def turnSecondsInto(self,seconds):
         """turns seconds into hour minute and second . returns as string hh:mm:ss"""
         days, seconds = divmod(seconds, 24*60*60)
