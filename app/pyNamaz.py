@@ -34,8 +34,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     remainingTime="00:00:00"#indicates remaining time for the next prayer time
     appRootDirectory=""#indicates where the main (pyNamaz.py) class in (app directory)
     warningTime="00:30:00" #indicates the warning time before next time becomes
-    isShown=False
-    lastWarningWasFor=""
+    isShown=False #keep if warning showed or not. changes to true when prayertime changes
+    lastWarningWasFor=""# indicates what was the last warning for
 
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -49,11 +49,10 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #TODO self.pushButtonSetTimesManuelly.clicked.connect(lambda: prayerTimes.getTimesManuelly(prayerTimesObj))
 
         self.trayIcon = QtGui.QSystemTrayIcon(self)
-
         self.printUseWarning() #prints initial warning
         self.setRootDirectory() #sets approotdirectory variable to able to know where we in
         self.showTrayIcon() #shows a tray icon
-        self.centerMainWindow()
+        self.centerMainWindow() #to be sure the main window cented on screen
 
         #Continually updating time and remaining time
         timer = QtCore.QTimer(self)
@@ -76,28 +75,34 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.actionQtcurve.triggered.connect(lambda: self.setAppearance('Qtcurve'))
         self.actionWindows.triggered.connect(lambda: self.setAppearance('Windows'))
 
+        #to be able to open prayertimes.txt and edit it
         self.pushButtonOpenPrayerTimesText.clicked.connect(self.openPrayerTimesText)
 
         #Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
         self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
-        self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))
+        self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))#Times data can be copy from here
 
     def showTrayIcon(self):
-        # menu = QtGui.QMenu(self)
-        # menu.addAction(self.actionCikis)
-        # self.trayIcon.setContextMenu(menu)
+        """
+        shows a tray icon
+        """
         self.trayIcon.setIcon(QtGui.QIcon(self.appRootDirectory+"/data/mosque.png"))#TODO path should be specified correctly
         if self.trayIcon.isVisible():
             pass
         else:
             self.trayIcon.show()
     def setRootDirectory(self):
+        """
+        Sets root directory of application.
+        """
         os.chdir("../")#for this usage pynamaz.py should be one level deep from root directory.
         self.appRootDirectory=os.getcwd()
-        #print self.appRootDirectory
     def printUseWarning(self):
+        """
+        prints how the application works
+        """
         QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
                                       u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
                                       u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
@@ -112,18 +117,20 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             os.system('xdg-open "'+self.appRootDirectory+'/data/PrayerTimes.txt"')
         else:
             os.system('start "'+self.appRootDirectory+'/data/PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
-    def setCurrentTime(self): #sets and continually updates then prints current time
+    def setCurrentTime(self):
+        """sets and continually updates then prints current time"""
         #TODO Should warn the user to set his system clock properly
         self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
         self.currentDate = QtCore.QDate().currentDate().toString("dd.MM.yy")
         self.lcdNumberCurrentHour.display(self.currentTime.split(':')[0])
         self.lcdNumberCurrentMinute.display(self.currentTime.split(':')[1])
         self.lcdNumberCurrentSecond.display(self.currentTime.split(':')[2])
-    def setPrayerTimes2(self): #Parses times file PrayerTimes.txt and sets time variables
+    def setPrayerTimes2(self):
+        """Parses times file PrayerTimes.txt and sets time variables
 
-        #PrayerTimes.txt format:
+        PrayerTimes.txt format:
             #07.01.2016 \t05:33 \t07:03 \t12:03 \t14:27 \t16:50 \t18:13 \t10:32\n
-
+        """
         #firstly, Current date and time must be set
         try:
             self.currentTime = QtCore.QTime().currentTime().toString("hh:mm:ss")
@@ -154,7 +161,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             elif line.split('\t')[0].strip(' ')==str(nextDate)[0:6]+"20"+str(nextDate)[6:]:#TODO I didnt test this
                 self.nextFajrTime=line.split('\t')[1].strip(' ')
                 break
-    def printPrayerTimes(self): #prints prayer times to the gui
+    def printPrayerTimes(self):
+        """prints current date and prayer times to the gui"""
         self.labelCurrentDate.setText("<h1>"+self.currentDate+"</h>")
         self.lcdNumberFajrHour.display(self.fajrTime.split(':')[0])
         self.lcdNumberFajrMinute.display(self.fajrTime.split(':')[1])
@@ -169,12 +177,21 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberIshaHour.display(self.ishaTime.split(':')[0])
         self.lcdNumberIshaMinute.display(self.ishaTime.split(':')[1])
     def setAppearance(self,appereance_choice):
+        """
+        sets appereance (eg: qtcurve , bespin)
+        """
          if appereance_choice == None:
             appereance_choice = "Cleanlooks"
          QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
     def openLink(self,url=''):
+        """
+        opens a given url
+        """
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(url))
     def calculateRemainingTime3(self):
+        """
+        Calculates remaining time and prints to gui , decides next time (eg: asr, fajr )
+        """
         #type casting time variables from string to qtime
         fajrQtime=self.convertToQtime(self.fajrTime+":00")
         currentQtime=self.convertToQtime(self.currentTime)
@@ -233,7 +250,12 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
         self.remainingTimeWarning(self.nextTime)
     def remainingTimeWarning(self,forTime):
+        """
+        Decides if warning is necessary or not
+        :param forTime: for which time we trying to warn (Asr, Fajr etc)
 
+
+        """
         warningQTime = self.convertToQtime(self.warningTime)
         remainingQtime=self.convertToQtime(self.remainingTime)
 
@@ -242,14 +264,17 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             self.isShown=True
             self.lastWarningWasFor=forTime
     def printWarn(self):
-
+        """
+        prints remaining time warning as notification
+        """
         # QtGui.QMessageBox.information(None, u"Vakit uyarısı",
         #                               u"sıradaki vakit: "+self.nextTime+u" Son "+self.remainingTime,u"Tamam")
 
         dict = {'Fajr': u'İmsak','Sunrise': u'Güneş','Dhuhr': u'Öğle', 'Asr': u'İkindi', 'Isha': u'Yatsı','Maghrib': u'Akşam'}#Turkish meanings of prayer times
         self.trayIcon.showMessage(u"Bilgi",u"Sonraki vakit : "+dict[self.nextTime]+u"\n"+u"Kalan süre: "+self.remainingTime,
                                   self.trayIcon.Information,6000)
-    def turnSecondsInto(self,seconds):#turns seconds into hour minute and second . returns as string hh:mm:ss
+    def turnSecondsInto(self,seconds):
+        """turns seconds into hour minute and second . returns as string hh:mm:ss"""
         days, seconds = divmod(seconds, 24*60*60)
         hours, seconds = divmod(seconds, 60*60)
         minutes, seconds = divmod(seconds, 60)
