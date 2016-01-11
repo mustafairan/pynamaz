@@ -107,7 +107,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         te.resize(40,40)
 
         pix=QtGui.QPixmap.grabWidget (te, 0,0,-3,-10)
-        pix.save("test.png")
+        #pix.save("test.png")
 
         self.trayIcon.setIcon(QtGui.QIcon(pix))#TODO path should be specified correctly
 
