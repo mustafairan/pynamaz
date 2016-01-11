@@ -33,7 +33,7 @@ class preferences:
         config.set('main', 'closeAction','hide')
         config.set('main', 'muteInAdhanTAime','false')
         config.set('main', 'beforeFajr','33')
-        config.set('main','beforeSunrise','33' )
+        config.set('main', 'beforeSunrise','33' )
         config.set('main', 'beforeDhduhr','33')
         config.set('main', 'beforeAsr','33')
         config.set('main', 'beforeMaghrib','33')

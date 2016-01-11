@@ -2,6 +2,8 @@
 
 import os #just for os.system and os.chdir
 import sys
+import preferences
+import prayerTimes
 
 try:
     from PyQt4 import QtCore, QtGui
