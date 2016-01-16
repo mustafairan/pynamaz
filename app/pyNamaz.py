@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
+#/usr/bin/env python
+
+import functools
+application_title = "simple_PyQt4"
+main_python_file = "pyNamaz.py"
 
 import sys
-import os #just for os.system and os.chdir
+import os #just for os.system and os.chdir and expanduser
 
 try:
     from PyQt4 import QtCore, QtGui
@@ -147,10 +152,10 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         """
         QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
                                       u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
-                                      u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
+                                      u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz. Eğer daha önce kaydettiyseniz bu uyarıyı dikkate almayınız\n"
 
                                       u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanın ve gelen tablodaki bilgileri farenizle seçip kopyalayın\n"
-                                      u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
+                                      u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız\nişlemi tamamladıktan sonra programı kapatıp tekrar açın\n",u"Anladım")
     def openPrayerTimesText(self):
         """
         opens PrayerTimes.txt file with a text editor
@@ -158,7 +163,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         if sys.platform.startswith("linux"):
             os.system('xdg-open "'+self.appRootDirectory+'/data/PrayerTimes.txt"')
         else:
-            os.system('start "'+self.appRootDirectory+'/data/PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
+            os.system('start notepad "'+r'%userprofile%\documents\PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
     def setCurrentTime(self):
         """sets and continually updates then prints current time"""
         #TODO Should warn the user to set his system clock properly
@@ -187,8 +192,18 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         nextDate= nextDate.toString("dd.MM.yy")
         #Finding Current date's prayer times from the file and assigning
 
+        if sys.platform.startswith("linux"):
+            timesFileObject = open(self.appRootDirectory+r"/data/PrayerTimes.txt", 'r')
+        else:
+            try:
+                timesFileObject = open(os.path.expanduser( "~/documents/PrayerTimes.txt"), 'r')
+            except:
+                timesFileObject = open(os.path.expanduser( "~/documents/PrayerTimes.txt"), 'a+')
+
+
+
         #TODO prayertimes.txt path should be specified with more efficient way
-        timesFileObject = open(self.appRootDirectory+r"/data/PrayerTimes.txt", 'r')
+
         for line in timesFileObject:
 
             #print str(nextDate)[0:6]+"20"+str(nextDate)[6:]
