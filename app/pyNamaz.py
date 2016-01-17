@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
+#/usr/bin/env python
 
-import os #just for os.system and os.chdir
+import functools # to make cxfreeze work on windows
+application_title = "pyNamaz" #for cxfreeze
+main_python_file = "pyNamaz.py" #for cxfreeze
+
 import sys
+import os #just for os.system and os.chdir and expanduser
 import preferences
 import prayerTimes
 
@@ -19,9 +24,7 @@ except:
     sys.exit()
 
 from app.ui_pynamaz import Ui_MainWindow
-
 app = QtGui.QApplication(sys.argv)
-
 class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     currentTime="88:88:88"
     fajrTime="88:88"
@@ -44,8 +47,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
         QtGui.QMainWindow.setWindowTitle(self,"pyNamaz")
-
-
 
         #prayerTimesObj=prayerTimes()
         #TODO self.pushButtonSetTimesManuelly.clicked.connect(lambda: prayerTimes.getTimesManuelly(prayerTimesObj))
@@ -86,9 +87,25 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
         self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))#Times data can be copy from here
 
+        #signal slot mechanism
+        #QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.menubar.show)
+        #QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL( QtCore.QString.fromUtf8("clicked()")),self.menuMen.show)
+        #self.connect(self.trayIcon,QtCore.SIGNAL( QtGui.QSystemTrayIcon.activated(2)),self.menuMen.show)
 
 
 
+    def printer(self):
+        print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+
+    def taskbarToggle(self):
+        """
+        hides or shows main window
+        """
+        if self.isVisible() :
+            self.setVisible(False)
+        else:
+            self.setVisible(True)
     def showTrayIcon(self):
         """
         shows a tray icon
@@ -149,10 +166,10 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         """
         QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
                                       u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
-                                      u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz.\n"
+                                      u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz. Eğer daha önce kaydettiyseniz bu uyarıyı dikkate almayınız\n"
 
                                       u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanın ve gelen tablodaki bilgileri farenizle seçip kopyalayın\n"
-                                      u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız",u"Anladım")
+                                      u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız\nişlemi tamamladıktan sonra programı kapatıp tekrar açın\n",u"Anladım")
     def openPrayerTimesText(self):
         """
         opens PrayerTimes.txt file with a text editor
@@ -160,7 +177,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         if sys.platform.startswith("linux"):
             os.system('xdg-open "'+self.appRootDirectory+'/data/PrayerTimes.txt"')
         else:
-            os.system('start "'+self.appRootDirectory+'/data/PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
+            os.system('start notepad "'+r'%userprofile%\documents\PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
     def setCurrentTime(self):
         """sets and continually updates then prints current time"""
         #TODO Should warn the user to set his system clock properly
@@ -189,8 +206,18 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         nextDate= nextDate.toString("dd.MM.yy")
         #Finding Current date's prayer times from the file and assigning
 
+        if sys.platform.startswith("linux"):
+            timesFileObject = open(self.appRootDirectory+r"/data/PrayerTimes.txt", 'r')
+        else:
+            try:
+                timesFileObject = open(os.path.expanduser( "~/documents/PrayerTimes.txt"), 'r')
+            except:
+                timesFileObject = open(os.path.expanduser( "~/documents/PrayerTimes.txt"), 'a+')
+
+
+
         #TODO prayertimes.txt path should be specified with more efficient way
-        timesFileObject = open(self.appRootDirectory+r"/data/PrayerTimes.txt", 'r')
+
         for line in timesFileObject:
 
             #print str(nextDate)[0:6]+"20"+str(nextDate)[6:]
@@ -294,8 +321,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
         self.remainingTimeWarning(self.nextTime)
         self.showTrayIcon() #shows a tray icon
-
-
     def remainingTimeWarning(self,forTime):
         """
         Decides if warning is necessary or not
@@ -320,9 +345,6 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         dict = {'Fajr': u'İmsak','Sunrise': u'Güneş','Dhuhr': u'Öğle', 'Asr': u'İkindi', 'Isha': u'Yatsı','Maghrib': u'Akşam'}#Turkish meanings of prayer times
         self.trayIcon.showMessage(u"Bilgi",u"Sonraki vakit : "+dict[self.nextTime]+u"\n"+u"Kalan süre: "+self.remainingTime,
                                   self.trayIcon.Information,6000)
-
-
-
     def turnSecondsInto(self,seconds):
         """turns seconds into hour minute and second . returns as string hh:mm:ss"""
         days, seconds = divmod(seconds, 24*60*60)
