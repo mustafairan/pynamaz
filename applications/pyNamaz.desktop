@@ -3,6 +3,6 @@
 Terminal=false
 Type=Application
 Name=pyNamaz
-Exec=cd ~/.pyNamaz && /usr/bin/python pyNamaz.py
+Exec=/usr/bin/env python ~/.pyNamaz/src/pyNamaz.py
 Icon= ~/.pyNamaz/data/icons/pyNamaz.png
 

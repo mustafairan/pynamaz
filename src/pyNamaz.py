@@ -41,22 +41,24 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     warningTime="00:30:00" #indicates the warning time before next time becomes
     isShown=False #keep if warning showed or not. changes to true when prayertime changes
     lastWarningWasFor=""# indicates what was the last warning for
-    preferencesDict={}
-    homedir=expanduser('~') #coz  python doesnt understand tilda
+    preferencesDict={} #keeps current preferences as a dictionary
+    homedir=expanduser('~') #coz  python doesnt understand tilda. this is the prefix location for main folder. default tilda is for linux.
+    platform=""#linux windows  mac or unknown
+    preferencesObj=preferences()
 
     def __init__(self):
+        self.findOutPlatform()
+        self.setHomedir()
         QtGui.QMainWindow.__init__(self)
 
         self.setupUi(self)
         QtGui.QMainWindow.setWindowTitle(self,"pyNamaz")
 
-        #prayerTimesObj=prayerTimes()
-
-        preferencesObj=preferences()
-        self.preferencesDict=preferencesObj.getPreferences()#Getting preferences to the dictionary
+        self.preferencesDict=self.preferencesObj.getPreferences()#Getting preferences to the dictionary
 
         self.trayIcon = QtGui.QSystemTrayIcon(self)
-        #self.printUseWarning() #prints initial warning
+
+        self.printUseWarning() #prints initial warning
         #self.setRootDirectory() #sets approotdirectory variable to able to know where we in
         self.centerMainWindow() #to be sure the main window cented on screen
 
@@ -74,18 +76,21 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         #Menu Section
             #Appereance Preferances
-        self.actionCleanlooks.triggered.connect(lambda: self.setAppearance('Cleanlooks'))
-        self.actionPlastique.triggered.connect(lambda: self.setAppearance('Plastique'))
-        self.actionPlastique.triggered.connect(lambda: self.setAppearance('Gtk'))
-        self.actionBespin.triggered.connect(lambda: self.setAppearance('Bespin'))
-        self.actionCDE.triggered.connect(lambda: self.setAppearance('CDE'))
-        self.actionMotif.triggered.connect(lambda: self.setAppearance('Motif'))
-        self.actionOxygen.triggered.connect(lambda: self.setAppearance('Oxygen'))
-        self.actionQtcurve.triggered.connect(lambda: self.setAppearance('Qtcurve'))
-        self.actionWindows.triggered.connect(lambda: self.setAppearance('Windows'))
+        self.actionCleanlooks.triggered.connect  (lambda: self.setAppearance('Cleanlooks'))
+        self.actionPlastique.triggered.connect   (lambda: self.setAppearance('Plastique'))
+        self.actionPlastique.triggered.connect   (lambda: self.setAppearance('Gtk'))
+        self.actionBespin.triggered.connect      (lambda: self.setAppearance('Bespin'))
+        self.actionCDE.triggered.connect         (lambda: self.setAppearance('CDE'))
+        self.actionMotif.triggered.connect       (lambda: self.setAppearance('Motif'))
+        self.actionOxygen.triggered.connect      (lambda: self.setAppearance('Oxygen'))
+        self.actionQtcurve.triggered.connect     (lambda: self.setAppearance('Qtcurve'))
+        self.actionWindows.triggered.connect     (lambda: self.setAppearance('Windows'))
+        self.actionNas_l_kullan_l_r.triggered.connect(lambda :self.printUseWarning(isAgain="yes"))
+        self.action_k.triggered.connect(lambda: exit(0))
 
         #to be able to open prayertimes.txt and edit it
         self.pushButtonOpenPrayerTimesText.clicked.connect(self.openPrayerTimesText)
+        self.pushButtonSetTimesManuelly.clicked.connect(self.openPrayerTimesText)
 
         #Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
@@ -94,30 +99,105 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))#Times data can be copy from here
 
         #preferences Tab
-        self.pushButtonPreferencesReset.clicked.connect(self.printPreferences)
-        self.pushButtonPreferencesReturnToDefaults.clicked.connect(lambda: preferencesObj.retunToDefaults(option="prefs"))
-        self.pushButtonPreferencesSave.clicked.connect(self.printer)
+        self.pushButtonPreferencesReset.clicked.connect(lambda: self.printPreferences(" "))
+        self.pushButtonPreferencesReturnToDefaults.clicked.connect(lambda: self.preferencesObj.retunToDefaults(option="prefs"))
+        self.pushButtonPreferencesReturnToDefaults.clicked.connect(lambda:self.printPreferences(" "))
+        #self.pushButtonPreferencesReturnToDefaults.clicked.connect(self.restartWarning)
+        self.pushButtonPreferencesSave.clicked.connect(self.saveNewPreferencesForPreferenceTab)
 
         #Warnins tab
-        self.pushButtonWarningsReset.clicked.connect(self.printPreferences)
-        self.pushButtonWarningsReturnToDefaults.clicked.connect(lambda: preferencesObj.retunToDefaults(option="warns"))
-
-        self.pushButtonWarningsSave.clicked.connect(self.printer)
+        self.pushButtonWarningsReset.clicked.connect(lambda: self.printPreferences(" "))
+        self.pushButtonWarningsReturnToDefaults.clicked.connect(lambda: self.preferencesObj.retunToDefaults(option="warns"))
+        self.pushButtonWarningsReturnToDefaults.clicked.connect(lambda: self.printPreferences(" "))
+        #self.pushButtonWarningsReturnToDefaults.clicked.connect(self.restartWarning)
+        self.pushButtonWarningsSave.clicked.connect(self.saveNewPreferencesForWarnings)
 
 
         #signal slot mechanism
         #QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.menubar.show)
         #QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL( QtCore.QString.fromUtf8("clicked()")),self.menuMen.show)
         #self.connect(self.trayIcon,QtCore.SIGNAL( QtGui.QSystemTrayIcon.activated(2)),self.menuMen.show)
-    def printPreferences(self):
+    def setHomedir(self):
+        if self.platform=="linux":
+            self.homedir=expanduser('~')
+        elif self.platform=="windows":
+            self.homedir="%userprofile%\documents"
+        elif self.platform=="mac":
+            self.homedir=expanduser('~')
+        else:
+            pass
+    def findOutPlatform(self):
+
+                # linux (2.x and 3.x) 	'linux2'
+                # Windows 	'win32'
+                # Windows/Cygwin 	'cygwin'
+                # Mac OS X 	'darwin'
+                # OS/2 	'os2'
+                # OS/2 EMX 	'os2emx'
+                # RiscOS 	'riscos'
+                # AtheOS 	'atheos'
+
+
+        if sys.platform.startswith("linux"):
+            self.platform="linux"
+        elif sys.platform.startswith("win32"):
+            self.platform="windows"
+        elif sys.platform.startswith("cygwin"):
+            self.platform="windows"
+        elif sys.platform.startswith("darwin"):
+            self.platform="mac"
+        elif sys.platform.startswith("os2"):
+            self.platform="mac"
+        elif sys.platform.startswith("os2emx"):
+            self.platform="mac"
+        else:
+            self.platform="unknown"
+
+
+
+    def saveNewPreferencesForPreferenceTab(self):
+        """
+        save new preferences which from prefereces tab to config file. Reprints new pref. to gui
+        """
+        self.preferencesDict["playadhan"]=str(  self.checkBoxPlayAdhan.isChecked()           )
+        self.preferencesDict["playwarnsound"]=str(  self.checkBoxPlayWarnSound.isChecked()       )
+        self.preferencesDict["showintray"]=str(  self.checkBoxShowInTray.isChecked()          )
+        self.preferencesDict["showsystemnotifications"]=str(  self.checkBoxSystemNotifications.isChecked() )
+        self.preferencesDict["muteinadhantime"]=str(  self.checkBoxMuteInAdhanTime.isChecked()     )
+        self.preferencesObj.savePreferences(self.preferencesDict)
+        self.preferencesDict=self.preferencesObj.getPreferences()
+        self.printPreferences()
+    def saveNewPreferencesForWarnings(self):
+        """
+        Handles save button for preferences tab. make prefs save and reloads prefdictionary
+
+        """
+        self.preferencesDict["sunrisewarn"]=str(  self.checkBoxSunriseWarn.isChecked()         )
+        self.preferencesDict["asrwarn"]=str(  self.checkBoxAsrWarn.isChecked()             )
+        self.preferencesDict["dhuhrwarn"]=str(  self.checkBoxDhuhrWarn.isChecked()           )
+        self.preferencesDict["fajrwarn"]=str(  self.checkBoxFajrWarn.isChecked()            )
+        self.preferencesDict["ishawarn"]=str(  self.checkBoxIshaWarn.isChecked()            )
+        self.preferencesDict["maghribwarn"]=str(  self.checkBoxMaghribWarn.isChecked()         )
+        self.preferencesDict["beforefajr"]=str(  self.spinBoxFacrWarn.value()                 )
+        self.preferencesDict["beforesunrise"]=str(  self.spinBoxSunriseWarn.value()              )
+        self.preferencesDict["beforedhduhr"]=str(  self.spinBoxDhuhrWarn.value()                )
+        self.preferencesDict["beforeasr"]=str(  self.spinBoxAsrWarn.value()                  )
+        self.preferencesDict["beforemaghrib"]=str(  self.spinBoxMaghribWarn.value()              )
+        self.preferencesDict["beforeisha"]=str(  self.spinBoxIshaWarn.value()                 )
+        self.preferencesObj.savePreferences(self.preferencesDict)
+        self.preferencesDict=self.preferencesObj.getPreferences()
+        self.printPreferences()
+    def printPreferences(self,reason=None):
         """
         prints preferences to the gui. Also necessary for controls
         """
+
+        self.preferencesDict=self.preferencesObj.getPreferences()
         self.checkBoxSunriseWarn.setChecked('True'==self.preferencesDict["sunrisewarn"])
-        self.checkBoxAsrWarn.setChecked('True'==self.preferencesDict["asrwarn"])
-        self.checkBoxDhuhrWarn.setChecked('True'==self.preferencesDict["dhuhrwarn"])
-        self.checkBoxFajrWarn.setChecked('True'==self.preferencesDict["fajrwarn"])
-        self.checkBoxIshaWarn.setChecked('True'==self.preferencesDict["ishawarn"])
+        self.checkBoxAsrWarn.setChecked('True'==self.preferencesDict    ["asrwarn"])
+        self.checkBoxDhuhrWarn.setChecked('True'==self.preferencesDict  ["dhuhrwarn"])
+        self.checkBoxFajrWarn.setChecked('True'==self.preferencesDict   ["fajrwarn"])
+        self.checkBoxIshaWarn.setChecked('True'==self.preferencesDict   ["ishawarn"])
         self.checkBoxMaghribWarn.setChecked('True'==self.preferencesDict["maghribwarn"])
 
         self.checkBoxPlayAdhan.setChecked('True'==self.preferencesDict["playadhan"])
@@ -132,9 +212,20 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.spinBoxAsrWarn.setValue(int(self.preferencesDict    ["beforeasr"]))
         self.spinBoxMaghribWarn.setValue(int(self.preferencesDict["beforemaghrib"]))
         self.spinBoxIshaWarn.setValue(int(self.preferencesDict   ["beforeisha"]))
+    def restartWarning(self):
+        """
+        warns user to restart application !!no use anymore!!
+        """
 
 
-
+        QtGui.QMessageBox.information(None, u"Uyarı!",
+                                      u"Yeni ayarları arayüzde görmek için uygulamayı yeniden başlatmalısınız\n",u"Tamam")
+    def restartApplication(self):
+        """
+        tries to restart application. !! doesnt Work!!!
+        """
+        QtCore.QProcess.startDetached(QtGui.QApplication.applicationFilePath())
+        exit(12)
     def taskbarToggle(self):
         """
         hides or shows main window
@@ -193,29 +284,42 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             self.trayIcon.show()
     def setRootDirectory(self):
         """
-        Sets root directory of application.
+        Sets root directory of application.  !!!no use anymore !!!
         """
         os.chdir("../")#for this usage pynamaz.py should be one level deep from root directory.
         self.appRootDirectory=os.getcwd()
-    def printUseWarning(self):
+    def printUseWarning(self,isAgain=None):
 
         """
         prints how the application works
+        if gets called with something, shows warning for 1 time
         """
-        QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
+        showedIt=self.preferencesDict["howtouseshowed"]
+        if not isAgain==None:
+            showedIt="False"
+
+        if str(showedIt)=="False":
+            QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
                                       u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
                                       u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz. Eğer daha önce kaydettiyseniz bu uyarıyı dikkate almayınız\n"
 
                                       u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanın ve gelen tablodaki bilgileri farenizle seçip kopyalayın\n"
                                       u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız\nişlemi tamamladıktan sonra programı kapatıp tekrar açın\n",u"Anladım")
+            self.preferencesDict["howtouseshowed"]="True"
+            self.preferencesObj.savePreferences(self.preferencesDict)
+        else:
+            pass
     def openPrayerTimesText(self):
         """
         opens PrayerTimes.txt file with a text editor
         """
-        if sys.platform.startswith("linux"):
+        if self.platform=="linux":
             os.system('xdg-open "'+self.homedir+'/.pyNamaz/data/PrayerTimes.txt"')
+        elif self.platform=="windows":
+            os.system('start notepad "'+self.homedir+r'\PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
         else:
-            os.system('start notepad "'+r'%userprofile%\documents\PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
+            pass
+
     def setCurrentTime(self):
         """sets and continually updates then prints current time"""
         #TODO Should warn the user to set his system clock properly
@@ -301,6 +405,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         """
         Calculates remaining time and prints to gui , decides next time (eg: asr, fajr )
         """
+
         #type casting time variables from string to qtime
         fajrQtime=self.convertToQtime(self.fajrTime+":00")
         currentQtime=self.convertToQtime(self.currentTime)
@@ -357,22 +462,63 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.lcdNumberNextPrayerHour.display(self.remainingTime.split(':')[0])
         self.lcdNumberNextPrayerMinute.display(self.remainingTime.split(':')[1])
         self.lcdNumberNextPrayerSecond.display(self.remainingTime.split(':')[2])
-        self.remainingTimeWarning(self.nextTime)
+        #self.remainingTimeWarning(self.nextTime)
+        self.remainingTimeWarning2(self.nextTime)
         self.showTrayIcon() #shows a tray icon
     def remainingTimeWarning(self,forTime):
         """
         Decides if warning is necessary or not
         :param forTime: for which time we trying to warn (Asr, Fajr etc)
-
-
         """
         warningQTime = self.convertToQtime(self.warningTime)
         remainingQtime=self.convertToQtime(self.remainingTime)
+
 
         if remainingQtime<=warningQTime and self.lastWarningWasFor!=forTime:
             self.printWarn()
             self.isShown=True
             self.lastWarningWasFor=forTime
+    def remainingTimeWarning2(self,forTime):
+        """
+        Decides if warning is necessary or not
+        :param forTime: for which time we trying to warn (Asr, Fajr etc)
+        """
+        remainingQtime=self.convertToQtime(self.remainingTime)
+        beforefajrQtime= self.convertToQtime(self.turnSecondsInto(int(self.preferencesDict["beforefajr"])*60))
+        beforesunriseQtime = self.convertToQtime(self.turnSecondsInto(int(self.preferencesDict["beforesunrise"])*60))
+        beforedhduhrQtime = self.convertToQtime(self.turnSecondsInto(int(self.preferencesDict["beforedhduhr"])*60))
+        beforeasrQtime = self.convertToQtime(self.turnSecondsInto(int(self.preferencesDict["beforeasr"])*60))
+        beforemaghribQtime = self.convertToQtime(self.turnSecondsInto(int(self.preferencesDict["beforemaghrib"])*60))
+        beforeishaQtime = self.convertToQtime(self.turnSecondsInto(int(self.preferencesDict["beforeisha"])*60))
+
+
+        if self.lastWarningWasFor!=forTime and self.preferencesDict["showintray"]=="True":
+            if self.nextTime=="Asr" and remainingQtime<=beforeasrQtime:
+                self.printWarn()
+                self.isShown=True
+                self.lastWarningWasFor=forTime
+            elif self.nextTime=="Dhuhr" and remainingQtime<=beforedhduhrQtime:
+                self.printWarn()
+                self.isShown=True
+                self.lastWarningWasFor=forTime
+            elif self.nextTime=="Maghrib" and remainingQtime<=beforemaghribQtime:
+                self.printWarn()
+                self.isShown=True
+                self.lastWarningWasFor=forTime
+            elif self.nextTime=="Isha" and remainingQtime<=beforeishaQtime:
+                self.printWarn()
+                self.isShown=True
+                self.lastWarningWasFor=forTime
+            elif self.nextTime=="Fajr" and remainingQtime<=beforefajrQtime:
+                self.printWarn()
+                self.isShown=True
+                self.lastWarningWasFor=forTime
+            elif self.nextTime=="Sunrise" and remainingQtime<=beforesunriseQtime:
+                self.printWarn()
+                self.isShown=True
+                self.lastWarningWasFor=forTime
+        else:
+            pass
     def printWarn(self):
         """
         prints remaining time warning as notification
