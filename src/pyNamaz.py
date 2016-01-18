@@ -7,8 +7,8 @@ main_python_file = "pyNamaz.py" #for cxfreeze
 
 import sys
 import os #just for os.system and os.chdir and expanduser
-import preferences
-import prayerTimes
+from preferences import *
+from prayerTimes import prayerTimes
 
 try:
     from PyQt4 import QtCore, QtGui
@@ -23,7 +23,7 @@ except:
                                   "Kapat")
     sys.exit()
 
-from app.ui_pynamaz import Ui_MainWindow
+from ui_pynamaz import Ui_MainWindow
 app = QtGui.QApplication(sys.argv)
 class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     currentTime="88:88:88"
@@ -41,6 +41,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     warningTime="00:30:00" #indicates the warning time before next time becomes
     isShown=False #keep if warning showed or not. changes to true when prayertime changes
     lastWarningWasFor=""# indicates what was the last warning for
+    preferencesDict={}
+    homedir=expanduser('~') #coz  python doesnt understand tilda
 
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -49,11 +51,13 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.setWindowTitle(self,"pyNamaz")
 
         #prayerTimesObj=prayerTimes()
-        #TODO self.pushButtonSetTimesManuelly.clicked.connect(lambda: prayerTimes.getTimesManuelly(prayerTimesObj))
+
+        preferencesObj=preferences()
+        self.preferencesDict=preferencesObj.getPreferences()#Getting preferences to the dictionary
 
         self.trayIcon = QtGui.QSystemTrayIcon(self)
-        self.printUseWarning() #prints initial warning
-        self.setRootDirectory() #sets approotdirectory variable to able to know where we in
+        #self.printUseWarning() #prints initial warning
+        #self.setRootDirectory() #sets approotdirectory variable to able to know where we in
         self.centerMainWindow() #to be sure the main window cented on screen
 
         #Continually updating time and remaining time
@@ -64,6 +68,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         self.setPrayerTimes2() #Parsing times file PrayerTimes.txt and setting time variables
         self.printPrayerTimes() #printing prayer times to the gui
+        self.printPreferences()#prints preferences to the gui. Also necessary for controls
+
 
 
         #Menu Section
@@ -84,18 +90,49 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
         self.pushButton_3.clicked.connect(lambda: self.openLink('http://github.com/mustafairan/pynamaz'))
-        self.pushButton.clicked.connect(lambda: self.openLink('http://diyanet.gov.tr'))
+        self.pushButton.clicked.connect(lambda: self.openLink  ('http://diyanet.gov.tr'))
         self.pushButton_4.clicked.connect(lambda: self.openLink('http://www.diyanet.gov.tr/tr/PrayerTime/WorldPrayerTimes'))#Times data can be copy from here
+
+        #preferences Tab
+        self.pushButtonPreferencesReset.clicked.connect(self.printPreferences)
+        self.pushButtonPreferencesReturnToDefaults.clicked.connect(lambda: preferencesObj.retunToDefaults(option="prefs"))
+        self.pushButtonPreferencesSave.clicked.connect(self.printer)
+
+        #Warnins tab
+        self.pushButtonWarningsReset.clicked.connect(self.printPreferences)
+        self.pushButtonWarningsReturnToDefaults.clicked.connect(lambda: preferencesObj.retunToDefaults(option="warns"))
+
+        self.pushButtonWarningsSave.clicked.connect(self.printer)
+
 
         #signal slot mechanism
         #QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.menubar.show)
         #QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL( QtCore.QString.fromUtf8("clicked()")),self.menuMen.show)
         #self.connect(self.trayIcon,QtCore.SIGNAL( QtGui.QSystemTrayIcon.activated(2)),self.menuMen.show)
+    def printPreferences(self):
+        """
+        prints preferences to the gui. Also necessary for controls
+        """
+        self.checkBoxSunriseWarn.setChecked('True'==self.preferencesDict["sunrisewarn"])
+        self.checkBoxAsrWarn.setChecked('True'==self.preferencesDict["asrwarn"])
+        self.checkBoxDhuhrWarn.setChecked('True'==self.preferencesDict["dhuhrwarn"])
+        self.checkBoxFajrWarn.setChecked('True'==self.preferencesDict["fajrwarn"])
+        self.checkBoxIshaWarn.setChecked('True'==self.preferencesDict["ishawarn"])
+        self.checkBoxMaghribWarn.setChecked('True'==self.preferencesDict["maghribwarn"])
 
+        self.checkBoxPlayAdhan.setChecked('True'==self.preferencesDict["playadhan"])
+        self.checkBoxMuteInAdhanTime.setChecked('True'==self.preferencesDict["muteinadhantime"])
+        self.checkBoxPlayWarnSound.setChecked('True'==self.preferencesDict["playwarnsound"])
+        self.checkBoxShowInTray.setChecked('True'==self.preferencesDict["showintray"])
+        self.checkBoxSystemNotifications.setChecked('True'==self.preferencesDict["showsystemnotifications"])
 
+        self.spinBoxFacrWarn.setValue(int(self.preferencesDict   ["beforefajr"]))
+        self.spinBoxSunriseWarn.setValue(int(self.preferencesDict["beforesunrise"]))
+        self.spinBoxDhuhrWarn.setValue(int(self.preferencesDict  ["beforedhduhr"]))
+        self.spinBoxAsrWarn.setValue(int(self.preferencesDict    ["beforeasr"]))
+        self.spinBoxMaghribWarn.setValue(int(self.preferencesDict["beforemaghrib"]))
+        self.spinBoxIshaWarn.setValue(int(self.preferencesDict   ["beforeisha"]))
 
-    def printer(self):
-        print "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 
     def taskbarToggle(self):
@@ -161,6 +198,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         os.chdir("../")#for this usage pynamaz.py should be one level deep from root directory.
         self.appRootDirectory=os.getcwd()
     def printUseWarning(self):
+
         """
         prints how the application works
         """
@@ -175,7 +213,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         opens PrayerTimes.txt file with a text editor
         """
         if sys.platform.startswith("linux"):
-            os.system('xdg-open "'+self.appRootDirectory+'/data/PrayerTimes.txt"')
+            os.system('xdg-open "'+self.homedir+'/.pyNamaz/data/PrayerTimes.txt"')
         else:
             os.system('start notepad "'+r'%userprofile%\documents\PrayerTimes.txt"') #TODO this usage can cause problem. file paths should be specified in more efficient way. should be tested in windows systems
     def setCurrentTime(self):
@@ -207,7 +245,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         #Finding Current date's prayer times from the file and assigning
 
         if sys.platform.startswith("linux"):
-            timesFileObject = open(self.appRootDirectory+r"/data/PrayerTimes.txt", 'r')
+            timesFileObject = open(self.homedir+"/.pyNamaz/data/PrayerTimes.txt", 'r')
         else:
             try:
                 timesFileObject = open(os.path.expanduser( "~/documents/PrayerTimes.txt"), 'r')
@@ -380,6 +418,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     def centerMainWindow(self):
         self.move((QtGui.QDesktopWidget().screenGeometry().width() - self.geometry().width()) / 2, \
                   (QtGui.QDesktopWidget().screenGeometry().height() - self.geometry().height()) / 2)
+    def printer(self):
+        print "I got called"
 
 
 if __name__ == "__main__":

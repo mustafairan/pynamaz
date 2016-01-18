@@ -1,8 +1,0 @@
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Terminal=false
-Type=Application
-Name=pyNamaz
-Exec=cd ~/pynamaz-development/app && /usr/bin/python ~/pynamaz-development/app/pyNamaz.py
-Icon= ~/pynamaz-development/data/mosque.png
-
