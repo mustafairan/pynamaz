@@ -28,3 +28,6 @@ PREFİX/pyNamaz/data/icons/pyNamaz.png         =app icon picture
 
 PREFİX/pyNamaz/src/                           =main source files directory
 
+PREFİX/pyNamaz/install.py                     =install script
+
+
