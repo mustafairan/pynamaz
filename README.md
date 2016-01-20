@@ -7,7 +7,11 @@ You can find  windows binaries  under binaries directory (or with this link : ht
 
 Warning! : x86 binary compiled in a untrusted platform for now.
 
+For install to linux change directory to where the install.py and give command
 
+"python install.py"
+
+then you can use pyNamaz.desktop file which inside application directory to run and delete the others
 
 
 directory hierarchy
