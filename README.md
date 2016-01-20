@@ -11,6 +11,7 @@ Warning! : x86 binary compiled in a untrusted platform for now.
 
 
 directory hierarchy
+For linux PREFIX is your home directory
 
 PREFİX/.pyNamaz/applications/pyNamaz.desktop   =desktop entry
 
