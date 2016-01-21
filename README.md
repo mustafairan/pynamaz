@@ -1,17 +1,20 @@
 # pynamaz
 Prayer times application 
 Uses Python and  PyQt 
-[![pynamaz screenshot](https://github.com/mustafairan/pynamaz/raw/master/screenshot.jpg)](https://github.com/mustafairan/pynamaz/raw/master/screenshot.jpg)
+[![pynamaz screenshot](https://github.com/mustafairan/pynamaz/raw/master-linux/screenshot.jpg)](https://github.com/mustafairan/pynamaz/raw/master/screenshot.jpg)
 
 You can find  windows binaries  under binaries directory (or with this link : https://github.com/mustafairan/pynamaz/tree/master/binaries/)
 
 Warning! : x86 binary compiled in a untrusted platform for now.
 
+For install to linux change directory to where the install.py and give command
 
+"python install.py"
+
+then you can use pyNamaz.desktop file which inside application directory to run and delete the others
 
 
 directory hierarchy
-For linux PREFIX is your home directory
 
 PREFİX/.pyNamaz/applications/pyNamaz.desktop   =desktop entry
 
