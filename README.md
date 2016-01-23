@@ -6,7 +6,7 @@ Uses Python and  PyQt
 You can find  windows binaries  under binaries directory 
 (or with this links :
 for windows x86>> https://raw.githubusercontent.com/mustafairan/pynamaz/master-windows/binaries/v2/windows-x86/pynamaz.zip
-for windows x64>> https://raw.githubusercontent.com/mustafairan/pynamaz/master-windows/binaries/v2/windows-x64/pynamaz.zip
+for windows x64>> https://raw.githubusercontent.com/mustafairan/pynamaz/master-windows/binaries/v2/windows-x64/pyNamaz.zip
 )
 Warning! : x86 binary compiled in a untrusted platform for now.
 
