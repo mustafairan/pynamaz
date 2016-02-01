@@ -1,7 +1,0 @@
-#!/usr/bin/env python
-
-import ../app/pyNamaz
-
-if __name__ == "__main__":
-    core.main()
- 
