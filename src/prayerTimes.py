@@ -1,5 +1,5 @@
-#!/usr/bin/env python2
-import urllib2
+#!/usr/bin/env python3
+import urllib
 import json
 
 #
@@ -14,8 +14,8 @@ class prayerTimes:
 
         pass
     def getTimes(self): #Gets prayer times from https://muezzin.herokuapp.com/. Its the api for diyanet.gov.tr
-        req = urllib2.Request('https://muezzin.herokuapp.com/countries')
-        response = urllib2.urlopen(req)
+        req = urllib.Request('https://muezzin.herokuapp.com/countries')
+        response = urllib.urlopen(req)
         the_page = response.read()
         #print(the_page)
 
@@ -28,9 +28,9 @@ class prayerTimes:
         #print data["countries"]
         country={}
         for dict in data["countries"]:
-            print dict
-            print dict['trName']
-            print dict ['id']
+            print (dict)
+            print (dict['trName'])
+            print (dict ['id'])
             #country =country+{dict["trName"]:dict['id']}
 
         pass
@@ -61,8 +61,8 @@ class prayerTimes:
 #         #
 #     def getCountries(self): #get all countries and prints it to countries.json file
 #
-#         req = urllib2.Request('https://muezzin.herokuapp.com/countries')
-#         response = urllib2.urlopen(req)
+#         req = urllib.Request('https://muezzin.herokuapp.com/countries')
+#         response = urllib.urlopen(req)
 #         the_page = response.read()
 #         with open("countries.json","w+") as fileobj:
 #             fileobj.write(the_page)
@@ -81,8 +81,8 @@ class prayerTimes:
 #
 #         #self.comboBoxSelectCountry.activated.connect(lambda : self.getCities (str(166))) #TODO
 #     def getCities(self,countryId): #get all cities for a given country id and prints it to cities.json file
-#         req = urllib2.Request('https://muezzin.herokuapp.com/'+str(countryId)+'/cities')
-#         response = urllib2.urlopen(req)
+#         req = urllib.Request('https://muezzin.herokuapp.com/'+str(countryId)+'/cities')
+#         response = urllib.urlopen(req)
 #         the_page = response.read()
 #         with open("cities.json","w+") as fileobj:
 #             fileobj.write(the_page)
@@ -102,8 +102,8 @@ class prayerTimes:
 #
 #             #self.comboBoxSelectCountry.activated.connect(lambda : self.getCities (str(166))) #TODO
 #     def getDistricts(self,cityId): #get all cities for a given country id and prints it to cities.json file
-#         req = urllib2.Request('https://muezzin.herokuapp.com/'+str(cityId)+'/districts')
-#         response = urllib2.urlopen(req)
+#         req = urllib.Request('https://muezzin.herokuapp.com/'+str(cityId)+'/districts')
+#         response = urllib.urlopen(req)
 #         the_page = response.read()
 #         with open("districts.json","w+") as fileobj:
 #             fileobj.write(the_page)

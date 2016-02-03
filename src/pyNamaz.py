@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# /usr/bin/env python
+# /usr/bin/env python3
 
 import functools  # to make cxfreeze work on windows
 
@@ -10,28 +10,32 @@ import sys
 from os import system,chdir
 
 from preferences import *
-from prayerTimes import prayerTimes
+#from prayerTimes import prayerTimes
+
+
 
 try:
-    from PyQt4 import QtCore, QtGui
+    from PyQt5 import QtCore, QtGui, QtWidgets
 except:
-    print u"PyQt modülü yüklü değil.\nPyQt 4.5 veya üzeri bir sürüm yükledikten tekrar deneyin."
+    print (u"PyQt modülü yüklü değil.\nPyQt 5 veya üzeri bir sürüm yükledikten tekrar deneyin.")
     sys.exit()
 
-try:
-
-    from PyQt4.phonon import Phonon
-except:
-    QtGui.QMessageBox.information(None, u"Modül Hatası", u"Phonon modülü bulunamadı. Yükledikten sonra tekrar deneyin",
-                                  "Kapat")
-    sys.exit()
+# try:
+#
+#     from PyQt5.phonon import Phonon
+# except:
+#     QtGui.QMessageBox.information(None, u"Modül Hatası", u"Phonon modülü bulunamadı. Yükledikten sonra tekrar deneyin",
+#                                   "Kapat")
+#     sys.exit()
 
 from ui_pynamaz import Ui_MainWindow
 
-app = QtGui.QApplication(sys.argv)
+#app = QtGui. QApplication(sys.argv)
+app =QtWidgets.QApplication (sys.argv)
 
+#class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
+class PyNamaz(QtWidgets.QMainWindow,Ui_MainWindow):
 
-class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     currentTime = "88:88:88"
     fajrTime = "88:88"
     asrTime = "88:88"
@@ -52,18 +56,22 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
     platform = ""  # linux windows  mac or unknown
     preferencesObj = preferences()
 
-    def __init__(self):
+    def __init__(self,parent=None):
+
         self.findOutPlatform()
         self.setHomedir()
-        QtGui.QMainWindow.__init__(self)
-
+        #QtGui.QMainWindow.__init__(self)
+        QtWidgets.QMainWindow.__init__(self)
         self.setupUi(self)
-        QtGui.QMainWindow.setWindowTitle(self, "pyNamaz")
 
+
+
+        #QtGui.QMainWindow.setWindowTitle(self, "pyNamaz")
+        QtWidgets.QMainWindow.setWindowTitle(self,"pyNamaz")
         self.preferencesDict = self.preferencesObj.getPreferences()  # Getting preferences to the dictionary
 
-        self.trayIcon = QtGui.QSystemTrayIcon(self)
-
+        # self.trayIcon = QtGui.QSystemTrayIcon(self)
+        self.trayIcon=QtWidgets.QSystemTrayIcon(self)
         self.printUseWarning()  # prints initial warning
         # self.setRootDirectory() #sets approotdirectory variable to able to know where we in
         self.centerMainWindow()  # to be sure the main window centered on screen
@@ -71,6 +79,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
 
         self.testt()
+
 
 
 
@@ -88,19 +97,20 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         # Appereance Preferances
         self.actionCleanlooks.triggered.connect(lambda: self.setAppearance('Cleanlooks'))
         self.actionPlastique.triggered.connect(lambda: self.setAppearance('Plastique'))
-        self.actionPlastique.triggered.connect(lambda: self.setAppearance('Gtk'))
+        self.actionPlastique.triggered.connect(lambda: self.setAppearance('GTK+'))
         self.actionBespin.triggered.connect(lambda: self.setAppearance('Bespin'))
-        self.actionCDE.triggered.connect(lambda: self.setAppearance('CDE'))
+        self.actionCDE.triggered.connect(lambda: self.setAppearance('Fusion'))
         self.actionMotif.triggered.connect(lambda: self.setAppearance('Motif'))
         self.actionOxygen.triggered.connect(lambda: self.setAppearance('Oxygen'))
         self.actionQtcurve.triggered.connect(lambda: self.setAppearance('Qtcurve'))
         self.actionWindows.triggered.connect(lambda: self.setAppearance('Windows'))
+
         self.actionNas_l_kullan_l_r.triggered.connect(lambda: self.printUseWarning(isAgain="yes"))
         self.action_k.triggered.connect(lambda: exit(0))
 
         # to be able to open prayertimes.txt and edit it
         self.pushButtonOpenPrayerTimesText.clicked.connect(self.openPrayerTimesText)
-        #TODO self.pushButtonSetTimesManuelly.clicked.connect(self.openPrayerTimesText)
+        self.pushButtonSetTimesManuelly.clicked.connect(self.openPrayerTimesText)
 
         # Link Buttons Section
         self.pushButton_2.clicked.connect(lambda: self.openLink('http://mustafairan.wordpress.com'))
@@ -126,12 +136,61 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButtonWarningsReturnToDefaults.clicked.connect(self.turnToFalse)
         # self.pushButtonWarningsReturnToDefaults.clicked.connect(self.restartWarning)
         self.pushButtonWarningsSave.clicked.connect(self.saveNewPreferencesForWarnings)
+        try:
+            self._windowIcon=QtGui.QIcon("../data/icons/pyNamaz.png")
+            self.setWindowIcon(self._windowIcon)
+        except:
+            pass
+
+
+        #QtCore.QObject.connect(self.trayIcon,QtCore.pyqtSignal.SIGNAL( "activated(QSystemTrayIcon::ActivationReason)"),self.trayIconEventHandle)
+        self.trayIcon.activated.connect(self.trayIconEventHandle)
+        self.trayContextMenu=QtWidgets.QMenu()
+        #actions specified in ui file using designer
+
+        self.trayContextMenu.addAction(self.actionExit)
+        self.actionExit.triggered.connect(lambda: sys.exit(0))
+        self.trayContextMenu.addAction(self.actionShow)
+        self.actionShow.triggered.connect(lambda : self.trayIconEventHandle("Show"))
+        self.trayContextMenu.addAction(self.actionHide)
+        self.actionHide.triggered.connect(lambda: self.trayIconEventHandle("Hide"))
+        self.trayIcon.setContextMenu(self.trayContextMenu)
+
+
 
 
         # signal slot mechanism
         # QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.menubar.show)
         # QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL( QtCore.QString.fromUtf8("clicked()")),self.menuMen.show)
         # self.connect(self.trayIcon,QtCore.SIGNAL( QtGui.QSystemTrayIcon.activated(2)),self.menuMen.show)
+    def trayIconEventHandle(self,Reason=None):
+
+        #print (Reason)
+        if Reason==self.trayIcon.Trigger:
+            if self.isHidden():
+                self.show()
+            elif not self.isHidden():
+                self.hide()
+            else:
+                pass
+        elif Reason==self.trayIcon.Context:
+            self.trayContextMenu.show()
+
+        elif Reason==self.trayIcon.MiddleClick:
+            #print "MiddleClick"
+            pass
+        elif Reason==self.trayIcon.DoubleClick:
+            #print "DoubleClick"
+            pass
+        elif Reason=="Show":
+            if self.isHidden():
+                self.show()
+        elif Reason=="Hide":
+            if not self.isHidden():
+                self.hide()
+        elif Reason=="Exit":
+            sys.exit(0)
+
 
     def setHomedir(self):
         if self.platform == "linux":
@@ -242,10 +301,10 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.checkBoxIshaWarn.setChecked('True' == self.preferencesDict["ishawarn"])
         self.checkBoxMaghribWarn.setChecked('True' == self.preferencesDict["maghribwarn"])
 
-        #TODO self.checkBoxPlayAdhan.setChecked('True' == self.preferencesDict["playadhan"])
-        #TODO self.checkBoxMuteInAdhanTime.setChecked('True' == self.preferencesDict["muteinadhantime"])
-        #TODO self.checkBoxPlayWarnSound.setChecked('True' == self.preferencesDict["playwarnsound"])
-        #TODO self.checkBoxShowInTray.setChecked('True' == self.preferencesDict["showintray"])
+        self.checkBoxPlayAdhan.setChecked('True' == self.preferencesDict["playadhan"])
+        self.checkBoxMuteInAdhanTime.setChecked('True' == self.preferencesDict["muteinadhantime"])
+        self.checkBoxPlayWarnSound.setChecked('True' == self.preferencesDict["playwarnsound"])
+        self.checkBoxShowInTray.setChecked('True' == self.preferencesDict["showintray"])
         self.checkBoxSystemNotifications.setChecked('True' == self.preferencesDict["showsystemnotifications"])
 
         self.spinBoxFacrWarn.setValue(int(self.preferencesDict["beforefajr"]))
@@ -270,16 +329,16 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         """
         QtCore.QProcess.startDetached(QtGui.QApplication.applicationFilePath())
         exit(12)
-
-    def taskbarToggle(self):
-        """
-        hides or shows main window
-        """
-        if self.isVisible():
-            self.setVisible(False)
-        else:
-            self.setVisible(True)
-
+    def setBootupStart(self,state=None):
+        # if state==True:
+        #     system("")
+        #     #sudo crontab -e
+        #     #@reboot python /appdir/bootscript.py &
+        # elif state==False:
+        #
+        # else:
+        #     pass
+        pass
     def showTrayIcon(self):
         """
         shows a tray icon
@@ -292,19 +351,38 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         # pix=QtGui.QPixmap.grabWidget (te, 0,0,-1,-1)
         # pix.save("test.png")
 
+        ###########################################qt4 way################
+        # #te = QtGui.QLCDNumber(3)
+        # te=QtWidgets.QLCDNumber(3)
+        # te.display((int(self.remainingTime.split(":")[0]) * 60 + int(self.remainingTime.split(":")[1])))
+        # #te.setSegmentStyle(QtGui.QLCDNumber.Flat)
+        # te.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
+        #
+        # te.resize(40, 40)
+        #
+        # pix = QtGui.QPixmap.grabWidget(te, 0, 0, -3, -10)
+        #
+        #
+        # # pix.save("test.png")
+        #
+        # self.trayIcon.setIcon(QtGui.QIcon(pix))  # TODO path should be specified correctly
 
-        te = QtGui.QLCDNumber(3)
-        te.display((int(self.remainingTime.split(":")[0]) * 60 + int(self.remainingTime.split(":")[1])))
-        te.setSegmentStyle(QtGui.QLCDNumber.Flat)
+        ####################################################
 
-        te.resize(40, 40)
+        ##########qt5way#######################################
+        lcd=QtWidgets.QLCDNumber(3)
+        lcd.display((int(self.remainingTime.split(":")[0]) * 60 + int(self.remainingTime.split(":")[1])))
+        lcd.resize(40,40)
 
-        pix = QtGui.QPixmap.grabWidget(te, 0, 0, -3, -10)
-        # pix.save("test.png")
+        lcd.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
+        img=lcd.grab()
 
-        self.trayIcon.setIcon(QtGui.QIcon(pix))  # TODO path should be specified correctly
 
-        ######################
+        # img=lcd.grab()
+        self.trayIcon.setIcon(QtGui.QIcon(img))  # TODO path should be specified correctly
+
+
+        ######################################################
 
         #############################
 
@@ -344,13 +422,13 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             showedIt = "False"
 
         if str(showedIt) == "False":
-            QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
+            #QtGui.QMessageBox.information(None, u"Nasıl kullanılır?",
+            QtWidgets .QMessageBox.information(QtWidgets.QMessageBox(), u"Nasıl kullanılır?",
                                           u"Uygulama sistem saatinizi kullanmaktadır. Saatinizin doğru olduğundan emin olun.\n"
                                           u"Uygulamanın çalışması için gerekli vakit bilgisini PrayerTimes.txt dosyasına kaydetmelisiniz. Eğer daha önce kaydettiyseniz bu uyarıyı dikkate almayınız\n"
 
                                           u"\nGerekli aylık vakit bilgilerine ulaşmak için linkler bölümündeki vakit bağlantısı butonunu kullanın ve gelen tablodaki bilgileri farenizle seçip kopyalayın\n"
-                                          u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız\nişlemi tamamladıktan sonra programı kapatıp tekrar açın\n",
-                                          u"Anladım")
+                                          u"Dosyayı açmak için Namaz vakitleri dosyasını aç butonunu kullanınız\nişlemi tamamladıktan sonra programı kapatıp tekrar açın\n")
             self.preferencesDict["howtouseshowed"] = "True"
             self.preferencesObj.savePreferences(self.preferencesDict)
         else:
@@ -390,7 +468,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
             # print self.currentDate + " "+ self.currentTime
             # pass
         except:
-            print "current time and date can't be obtained from operating system"  # should be gui warning
+            print ("current time and date can't be obtained from operating system")  # should be gui warning
 
         currentDate = QtCore.QDate.fromString(self.currentDate, "dd.MM.yy")
         nextDate = currentDate.addDays(1)
@@ -445,7 +523,8 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         """
         if appereance_choice == None:
             appereance_choice = "Cleanlooks"
-        QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(appereance_choice))
+        QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create(appereance_choice))
+        print (QtWidgets.QStyleFactory.keys())
 
     def openLink(self, url=''):
         """
@@ -621,11 +700,13 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         return timeQ
 
     def centerMainWindow(self):
-        self.move((QtGui.QDesktopWidget().screenGeometry().width() - self.geometry().width()) / 2, \
-                  (QtGui.QDesktopWidget().screenGeometry().height() - self.geometry().height()) / 2)
+        # self.move((QtGui.QDesktopWidget().screenGeometry().width() - self.geometry().width()) / 2, \
+        #           (QtGui.QDesktopWidget().screenGeometry().height() - self.geometry().height()) / 2)
+        self.move((QtWidgets.QDesktopWidget().screenGeometry().width() - self.geometry().width()) / 2, \
+                  (QtWidgets.QDesktopWidget().screenGeometry().height() - self.geometry().height()) / 2)
 
     def printer(self):
-        print "I got called"
+        print ("I got called")
 
 
 if __name__ == "__main__":

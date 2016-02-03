@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-#/usr/bin/env python
+#/usr/bin/env python3
+
 from os.path import  isfile,expanduser
 from sys import platform
 
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 class preferences:
     prefDict={}
     homedir=expanduser('~') #coz  python doesnt understand tilda. this is the prefix location for main folder. default tilda is for linux.
@@ -18,7 +19,6 @@ class preferences:
         """
         self.findOutPlatform()
         self.setHomedir()
-
         if not isfile(self.homedir+'/.pyNamaz/config/config.ini'):
             f=open(self.homedir+'/.pyNamaz/config/config.ini',"w")
 
@@ -149,7 +149,7 @@ class preferences:
                 config.set("MAIN", 'maghribWarn','True')
 
             else:
-                print "ERROR: returnToDefaults got an invalid parameter"
+                print ("ERROR: returnToDefaults got an invalid parameter")
 
         with open(self.homedir+'/.pyNamaz/config/config.ini', 'w') as f:
             config.write(f)

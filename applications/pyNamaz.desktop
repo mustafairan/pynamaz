@@ -1,8 +1,7 @@
-#!/usr/bin/env xdg-open
 [Desktop Entry]
 Terminal=false
 Type=Application
 Name=pyNamaz
-Exec=/usr/bin/env python ~/.pyNamaz/src/pyNamaz.py
-Icon= ~/.pyNamaz/data/icons/pyNamaz.png
-
+Path=/home/mnc/.pyNamaz/src
+Exec=python3 pyNamaz.py
+Icon=/home/mnc/.pyNamaz/data/icons/pyNamaz.png
