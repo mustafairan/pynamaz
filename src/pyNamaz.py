@@ -69,6 +69,15 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.centerMainWindow()  # to be sure the main window centered on screen
 
 
+        try:
+
+            print getcwd()
+            self._windowIcon=QtGui.QIcon(r"data\icons\pyNamaz.png")
+            self.setWindowIcon(self._windowIcon)
+        except Exception as e:
+            print e
+            pass
+
 
         self.testt()
 
@@ -128,10 +137,78 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButtonWarningsSave.clicked.connect(self.saveNewPreferencesForWarnings)
 
 
+
+
+
         # signal slot mechanism
         # QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.menubar.show)
         # QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL( QtCore.QString.fromUtf8("clicked()")),self.menuMen.show)
         # self.connect(self.trayIcon,QtCore.SIGNAL( QtGui.QSystemTrayIcon.activated(2)),self.menuMen.show)
+##############################################
+
+
+
+#QtCore.QObject.connect(self.trayIcon,QtCore.pyqtSignal.SIGNAL( "activated(QSystemTrayIcon::ActivationReason)"),self.trayIconEventHandle)
+        self.trayIcon.activated.connect(self.trayIconEventHandle)
+        self.trayContextMenu=QtGui.QMenu()
+        #actions specified in ui file using designer
+
+        self.trayContextMenu.addAction(self.actionExit)
+        self.actionExit.triggered.connect(lambda: self.trayIcon.hide())
+        self.actionExit.triggered.connect(lambda: sys.exit(0))
+        self.trayContextMenu.addAction(self.actionShow)
+        self.actionShow.triggered.connect(lambda : self.trayIconEventHandle("Show"))
+        self.trayContextMenu.addAction(self.actionHide)
+        self.actionHide.triggered.connect(lambda: self.trayIconEventHandle("Hide"))
+        self.trayIcon.setContextMenu(self.trayContextMenu)
+
+
+
+
+        # signal slot mechanism
+        # QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.menubar.show)
+        # QtCore.QObject.connect(self.testbutton, QtCore.SIGNAL( QtCore.QString.fromUtf8("clicked()")),self.menuMen.show)
+        # self.connect(self.trayIcon,QtCore.SIGNAL( QtGui.QSystemTrayIcon.activated(2)),self.menuMen.show)
+    def trayIconEventHandle(self,Reason=None):
+
+        #print (Reason)
+        if Reason==self.trayIcon.Trigger:
+            if self.isHidden():
+                self.show()
+            elif not self.isHidden():
+                self.hide()
+            else:
+                pass
+        elif Reason==self.trayIcon.Context:
+            self.trayContextMenu.show()
+
+        elif Reason==self.trayIcon.MiddleClick:
+            #print "MiddleClick"
+            pass
+        elif Reason==self.trayIcon.DoubleClick:
+            #print "DoubleClick"
+            pass
+        elif Reason=="Show":
+            if self.isHidden():
+                self.show()
+        elif Reason=="Hide":
+            if not self.isHidden():
+                self.hide()
+        elif Reason=="Exit":
+            sys.exit(0)
+
+
+
+
+
+
+
+#############################################
+
+
+
+
+
 
     def setHomedir(self):
         if self.platform == "linux":
@@ -293,7 +370,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         # pix=QtGui.QPixmap.grabWidget (te, 0,0,-1,-1)
         # pix.save("test.png")
 
-
+###########################old#############
         te = QtGui.QLCDNumber(3)
         te.display((int(self.remainingTime.split(":")[0]) * 60 + int(self.remainingTime.split(":")[1])))
         te.setSegmentStyle(QtGui.QLCDNumber.Flat)
@@ -305,7 +382,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         self.trayIcon.setIcon(QtGui.QIcon(pix))  # TODO path should be specified correctly
 
-        ######################
+        ######################/old
 
         #############################
 
@@ -321,6 +398,9 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
         # self.trayIcon.setIcon(QtGui.QIcon("sqqsqsq.png"))#TODO path should be specified correctly
         # painter.end()
         ######################
+
+
+
 
         if self.trayIcon.isVisible():
             pass
@@ -403,7 +483,7 @@ class PyNamaz(QtGui.QMainWindow, Ui_MainWindow):
 
         elif self.platform=="windows":
             try:
-                print("dccdcdcdcdcdcdcc"+ self.homedir)
+
                 timesFileObject = open(self.homedir + "\data\PrayerTimes.txt", 'r')
             except:
                 timesFileObject = open(self.homedir + "\data\PrayerTimes.txt", 'a+')
