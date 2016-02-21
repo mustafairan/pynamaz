@@ -1,4 +1,11 @@
 # pynamaz
+
+[TÜRKÇE]
+Pynamaz bir namaz vaktileri uygulamasıdır. Yukarıdaki linklerden (windows için) Setup dosyasını indirebilirsiniz. Binary versiyonu wine aracılığıyla linux üzerinde kullanabilirsiniz. İsterseniz pynamaz.py aracılığıyla doğrudan python ile çalıştırabilirsiniz.
+
+
+
+
 Prayer times application 
 Uses Python and  PyQt 
 [![pynamaz screenshot](https://github.com/mustafairan/pynamaz/raw/master-linux/screenshot.jpg)](https://github.com/mustafairan/pynamaz/raw/master/screenshot.jpg)
@@ -18,4 +25,5 @@ Warning! : x86 binary compiled in a untrusted platform for now.
 
 or you can run src/pyNamaz.py with python
 
-Also, Working on debian with wine.
+Binarys working on debian (and probably with other distros) via wine also.
+
